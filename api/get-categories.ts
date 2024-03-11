@@ -1,8 +1,6 @@
 import { API_BASE_URL } from "@/constants"
 import axios from "axios"
-import { error } from "console"
 
-export { }
 export async function getCategoriesAPI(url: string, setIsLoading: any) {
     try {
         setIsLoading(true)
