@@ -8,7 +8,10 @@ export type tMenuListContext = {
     setCategoryList: Dispatch<SetStateAction<tCategory[]>>,
     selectedCategory: tCategory,
     setSelectedCategory: Dispatch<SetStateAction<tCategory>>,
-    handleClickCategory:(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void,
+    handleClickCategory: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void,
+    handleAddToCart: (e: any) => void,
+    handleIncrement: (e: any) => void,
+    handleDecrement: (e: any) => void,
 }
 
 export type tCategory = {

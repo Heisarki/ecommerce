@@ -1,12 +1,18 @@
+"use client"
 import { useCartContext } from '@/context/cartContext';
 import { tCartContext, tCartItem } from '@/types/cartContextType';
+import { useRouter } from 'next/navigation';
 import React from 'react'
 import { GiShoppingCart } from "react-icons/gi";
 
 export default function CartButton() {
     const { cartItems }: tCartContext = useCartContext();
+    const router = useRouter()
+    function handleCartClick() {
+        router.push("/cart")
+    }
     return (
-        <div className='relative'>
+        <div className='relative' onClick={handleCartClick}>
             {
                 cartItems.length > 0
                     ? <div className='absolute left-[1px] top-[-1px] border h-4 w-4 rounded-[50%] flex justify-center items-center bg-red-500'>
