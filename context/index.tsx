@@ -8,10 +8,10 @@ export default function ContextProvider({
     children: ReactNode
 }) {
     return (
-        <CartContextProvider>
-            <MenuListContextProvider>
+        <MenuListContextProvider>
+            <CartContextProvider>
                 {children}
-            </MenuListContextProvider>
-        </CartContextProvider>
+            </CartContextProvider>
+        </MenuListContextProvider>
     )
 }

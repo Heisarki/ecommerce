@@ -11,6 +11,7 @@ import {
     useEffect,
 } from "react";
 import { useCartContext } from "./cartContext";
+import { addQtyKeyToItemListing } from "@/utils";
 
 const MenuListContext = createContext({} as tMenuListContext);
 
@@ -19,7 +20,6 @@ export const MenuListContextProvider = ({
 }: {
     children: ReactNode
 }) => {
-    const { cartItems, setCartItems }: tCartContext = useCartContext();
     const [categoryList, setCategoryList] = useState(CATEGORY as tCategory[])
     const [selectedCategory, setSelectedCategory] = useState({} as tCategory)
     const [productList, setProductList] = useState([] as tProduct[])
@@ -43,7 +43,7 @@ export const MenuListContextProvider = ({
         const res: any = await getCategoryProductListAPI(selectedCategoryTemp?.name)
         console.log("RES", res)
         if (res.status)
-            setProductList(res.data)
+            setProductList(addQtyKeyToItemListing(res.data))
     }
 
     /**
@@ -55,7 +55,7 @@ export const MenuListContextProvider = ({
             const res: any = await getAllProductListAPI()
             console.log("RES", res)
             if (res.status)
-                setProductList(res.data)
+                setProductList(addQtyKeyToItemListing(res.data))
         }
         getAllProductList()
     }, [])

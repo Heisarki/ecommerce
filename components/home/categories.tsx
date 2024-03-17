@@ -28,46 +28,49 @@ export default function Categories() {
     }
 
     return (
-        <Card className='relative w-[100%] p-[0.5rem]  rounded-sm'>
-            <div className='w-[2rem] absolute left-0 top-[20%] bottom-[20%] z-10'>
-                <div
-                    onClick={handleScrollLeft}
-                    className='flex items-center justify-center h-[80%]    rounded-r-md md:cursor-pointer bg-primary'
-                >
-                    <FaChevronLeft color='#fff' />
+        <>
+            <h1 className='text-xl font-medium mb-[-10px]'>Categories</h1>
+            <Card className='relative w-[100%] p-[0.5rem]  rounded-sm'>
+                <div className='w-[2rem] absolute left-0 top-[20%] bottom-[20%] z-10 md:block hidden'>
+                    <div
+                        onClick={handleScrollLeft}
+                        className='flex items-center justify-center h-[80%] rounded-r-md md:cursor-pointer bg-primary'
+                    >
+                        <FaChevronLeft color='#fff' />
+                    </div>
                 </div>
-            </div>
-            <div
-                ref={scrollRef}
-                className='flex gap-4 w-[100%] overflow-auto relative scroll-smooth pb-[0.5rem]'
-            >
-                {
-                    categoryList.map((categoryEle: any) => (
-                        <div
-                            data-id={categoryEle.id}
-                            key={categoryEle.id}
-                            onClick={handleClickCategory}
-                            className='rounded-xl border justify-between flex-grow w-[300px] h-[200px] flex flex-shrink-0 flex-col md:cursor-pointer gap-[0.5rem]'
-                        >
-                            <img
+                <div
+                    ref={scrollRef}
+                    className='flex gap-4 w-[100%] overflow-auto relative scroll-smooth pb-[0.5rem]'
+                >
+                    {
+                        categoryList.map((categoryEle: any) => (
+                            <div
                                 data-id={categoryEle.id}
-                                src={categoryEle.image}
-                                alt={categoryEle.id}
-                                className='rounded-lg object-contain h-[150px] p-[.5rem]'
-                            />
-                            <p data-id={categoryEle.id} className='capitalize font-semibold text-xs border-t p-[.5rem] text-center'>{categoryEle.name}</p>
-                        </div>
-                    ))
-                }
-            </div>
-            <div className='w-[2rem] absolute right-0 top-[20%] bottom-[20%] z-5'>
-                <div
-                    onClick={handleScrollRight}
-                    className='flex items-center justify-center h-[80%] bg-primary rounded-l-md md:cursor-pointer'
-                >
-                    <FaAngleRight color='#fff' />
+                                key={categoryEle.id}
+                                onClick={handleClickCategory}
+                                className='rounded-xl border justify-between flex-grow w-[300px] h-[200px] flex flex-shrink-0 flex-col md:cursor-pointer gap-[0.5rem]'
+                            >
+                                <img
+                                    data-id={categoryEle.id}
+                                    src={categoryEle.image}
+                                    alt={categoryEle.id}
+                                    className='rounded-lg object-contain h-[150px] p-[.5rem]'
+                                />
+                                <p data-id={categoryEle.id} className='capitalize font-medium text-xs border-t p-[.5rem] text-center'>{categoryEle.name}</p>
+                            </div>
+                        ))
+                    }
                 </div>
-            </div>
-        </Card>
+                <div className='w-[2rem] absolute right-0 top-[20%] bottom-[20%] z-5 md:block hidden'>
+                    <div
+                        onClick={handleScrollRight}
+                        className='flex items-center justify-center h-[80%] bg-primary rounded-l-md md:cursor-pointer'
+                    >
+                        <FaAngleRight color='#fff' />
+                    </div>
+                </div>
+            </Card>
+        </>
     )
 }

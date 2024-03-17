@@ -2,7 +2,10 @@ import { Dispatch, SetStateAction } from "react";
 
 export type tCartContext ={
     cartItems: tCartItem[],
-    setCartItems: Dispatch<SetStateAction<tCartItem[]>>,
+  setCartItems: Dispatch<SetStateAction<tCartItem[]>>,
+  handleAddToCart: (e: any) => void,
+  handleIncrement: (e: any) => void,
+  handleDecrement: (e: any) => void,
 }
 
 export type tCartItem = {
@@ -16,5 +19,5 @@ export type tCartItem = {
       rate: number;
       count: number;
     };
-    quantity: number;
+    qty: number;
 }
