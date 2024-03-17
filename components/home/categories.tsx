@@ -44,10 +44,10 @@ export default function Categories() {
                     className='flex gap-4 w-[100%] overflow-auto relative scroll-smooth pb-[0.5rem]'
                 >
                     {
-                        categoryList.map((categoryEle: any) => (
+                        categoryList.map((categoryEle: any, index: number) => (
                             <div
                                 data-id={categoryEle.id}
-                                key={categoryEle.id}
+                                key={categoryEle.id || index}
                                 onClick={handleClickCategory}
                                 className='rounded-xl border justify-between flex-grow w-[300px] h-[200px] flex flex-shrink-0 flex-col md:cursor-pointer gap-[0.5rem]'
                             >
