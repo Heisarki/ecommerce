@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider"
-import AppLayout from "@/components/app-layout";
+import { ThemeProvider } from "@/components/ThemeProvider"
+import AppLayout from "@/components/AppLayout";
+import ContextProvider from "@/context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,16 +19,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${inter.className} w-screen overflow-x-hidden`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <AppLayout>
-            {children}
-          </AppLayout>
+          <ContextProvider>
+            <AppLayout>
+              {children}
+            </AppLayout>
+          </ContextProvider>
         </ThemeProvider>
       </body>
     </html>

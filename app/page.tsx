@@ -1,5 +1,5 @@
-import Categories from "@/components/home/categories";
-import ItemListing from "@/components/home/item-listing";
+import Categories from "@/components/home/Categories";
+import ItemListing from "@/components/home/itemListing/ItemListing";
 
 export default function Home() {
   return (

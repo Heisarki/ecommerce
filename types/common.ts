@@ -8,6 +8,11 @@ export type tProduct = {
     rating: {
       rate: number;
       count: number;
-    };
+  };
+  qty: number;
 };
-  
+
+export type tProductList = {
+  data: tProduct[],
+  isLoading: boolean
+}
