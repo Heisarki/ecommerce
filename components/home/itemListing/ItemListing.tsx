@@ -5,7 +5,7 @@ import { tMenuListContext } from '@/types'
 import { useMenuListContext } from '@/context/menuListContext'
 
 export default function ItemListing() {
-    const { productList, selectedCategory }: tMenuListContext = useMenuListContext()
+    const { filteredProductList, selectedCategory }: tMenuListContext = useMenuListContext()
     return (
         <div className='flex flex-col gap-[0.5rem]'>
             <h1 className='text-xl font-medium capitalize'>
@@ -16,10 +16,10 @@ export default function ItemListing() {
                 }
             </h1>
             {
-                productList.length > 0
+                filteredProductList.data.length > 0
                     ? <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-3 grid-cols-2 gap-3'>
                         {
-                            productList.map((itemEle: any) => (
+                            filteredProductList.data.map((itemEle: any) => (
                                 <Item
                                     item={itemEle}
                                     key={itemEle.id}
@@ -27,7 +27,11 @@ export default function ItemListing() {
                             ))
                         }
                     </div>
-                    : "Loading..."
+                    : <p className='pt-[5rem] text-center'>
+                        {
+                            filteredProductList.isLoading ? "Loading..." : "No item found!"
+                        }
+                    </p>
             }
         </div>
     )

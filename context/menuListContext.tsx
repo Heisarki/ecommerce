@@ -1,7 +1,7 @@
 "use client";
 import { getAllProductListAPI, getCategoryProductListAPI } from "@/api/get-product-list";
 import { CATEGORY } from "@/constants/category";
-import { tCategory, tMenuListContext, tProduct } from "@/types";
+import { tCategory, tMenuListContext, tProduct, tProductList } from "@/types";
 import { tCartContext, tCartItem } from "@/types/cartContextType";
 import {
     createContext,
@@ -23,15 +23,20 @@ export const MenuListContextProvider = ({
     const { cartItems, setCartItems }: tCartContext = useCartContext()
     const [categoryList, setCategoryList] = useState(CATEGORY as tCategory[])
     const [selectedCategory, setSelectedCategory] = useState({} as tCategory)
-    const [productList, setProductList] = useState([] as tProduct[])
+    const [productList, setProductList] = useState({ isLoading: true, data: [] } as tProductList)
+    const [filteredProductList, setFilteredProductList] = useState({ isLoading: true, data: [] } as tProductList)
+    const [searchValue, setSearchValue] = useState("")
     const value = {
         productList, setProductList,
+        filteredProductList, setFilteredProductList,
         categoryList, setCategoryList,
         selectedCategory, setSelectedCategory,
         handleClickCategory,
         handleAddToCart,
         handleIncrement,
         handleDecrement,
+        searchValue,
+        handleOnChangeSearch,
     }
 
     /**
@@ -40,14 +45,18 @@ export const MenuListContextProvider = ({
      * from this category
      */
     async function handleClickCategory(e: any) {
-        setProductList([])
+        setProductList({ isLoading: true, data: [] })
+        setFilteredProductList({ isLoading: true, data: [] })
         const id = e.target.getAttribute("data-id")
         const selectedCategoryTemp = categoryList.filter((categoryEle: tCategory) => categoryEle.id === id)[0]
         setSelectedCategory(selectedCategoryTemp)
         const res: any = await getCategoryProductListAPI(selectedCategoryTemp?.name)
         console.log("RES", res)
-        if (res.status)
-            setProductList(getItemDataFromCart(res.data, cartItems))
+        if (res.status) {
+            const processedItemList = getItemDataFromCart(res.data, cartItems)
+            setProductList({ isLoading: false, data: processedItemList })
+            setFilteredProductList({ isLoading: false, data: processedItemList })
+        }
     }
 
     /**
@@ -56,7 +65,8 @@ export const MenuListContextProvider = ({
      */
     function handleAddToCart(e: any) {
         const id = e.target.getAttribute("data-id")
-        const itemToAddToCart: tCartItem | any = productList.find((itemEle: tProduct) => String(itemEle.id) === String(id))
+        const itemToAddToCart: tCartItem | any = productList.data.find((itemEle: tProduct) => String(itemEle.id) === String(id))
+        console.log(itemToAddToCart)
         if (itemToAddToCart) {
             setCartItems([
                 ...cartItems,
@@ -65,11 +75,16 @@ export const MenuListContextProvider = ({
                     qty: 1
                 }
             ])
-            setProductList(productList.map((itemEle: tProduct) => {
-                if (String(itemEle.id) === String(id))
-                    return { ...itemEle, qty: 1 }
-                return { ...itemEle }
-            }))
+            const modifiedProductList = {
+                isLoading: false,
+                data: productList.data.map((itemEle: tProduct) => {
+                    if (String(itemEle.id) === String(id))
+                        return { ...itemEle, qty: 1 }
+                    return { ...itemEle }
+                })
+            }
+            setProductList(modifiedProductList)
+            setFilteredProductList(modifiedProductList)
         }
     }
     function handleIncrement(e: any) {
@@ -80,15 +95,20 @@ export const MenuListContextProvider = ({
                 return { ...itemEle, qty: itemEle.qty + 1 }
             return { ...itemEle }
         }))
-        setProductList(productList.map((itemEle: tProduct) => {
-            if (String(itemEle.id) === String(id))
-                return { ...itemEle, qty: itemEle.qty + 1 }
-            return { ...itemEle }
-        }))
+        const modifiedProductList = {
+            isLoading: false,
+            data: productList.data.map((itemEle: tProduct) => {
+                if (String(itemEle.id) === String(id))
+                    return { ...itemEle, qty: itemEle.qty + 1 }
+                return { ...itemEle }
+            })
+        }
+        setProductList(modifiedProductList)
+        setFilteredProductList(modifiedProductList)
     }
     function handleDecrement(e: any) {
         const id = e.target.getAttribute("data-id")
-        const itemToAddToCart: tCartItem | any = productList.find((itemEle: tProduct) => String(itemEle.id) === String(id))
+        const itemToAddToCart: tCartItem | any = productList.data.find((itemEle: tProduct) => String(itemEle.id) === String(id))
         if (itemToAddToCart) {
             if (itemToAddToCart.qty === 1) {
                 setCartItems(cartItems.filter((itemEle: tCartItem) => String(itemEle.id) !== String(id)))
@@ -99,12 +119,37 @@ export const MenuListContextProvider = ({
                     return { ...itemEle }
                 }))
             }
-            setProductList(productList.map((itemEle: tProduct) => {
-                if (String(itemEle.id) === String(id))
-                    return { ...itemEle, qty: itemEle.qty - 1 }
-                return { ...itemEle }
-            }))
+            const modifiedProductList = {
+                isLoading: false,
+                data: productList.data.map((itemEle: tProduct) => {
+                    if (String(itemEle.id) === String(id))
+                        return { ...itemEle, qty: itemEle.qty - 1 }
+                    return { ...itemEle }
+                })
+            }
+            setProductList(modifiedProductList)
+            setFilteredProductList(modifiedProductList)
         }
+    }
+
+    /**
+     * Function to handle search product
+     */
+    function handleOnChangeSearch(e: any) {
+        setFilteredProductList({ isLoading: true, data: [] })
+        const value = e.target.value
+        setSearchValue(value)
+        // setTimeout(() => {
+        const lowercaseQuery = value.toLowerCase();
+        // Filter items based on whether they include the query in their title or description
+        const filteredItems = productList.data.filter(item => {
+            const lowercaseName = item.title.toLowerCase();
+            const lowercaseDescription = item.description.toLowerCase();
+            return lowercaseName.includes(lowercaseQuery) || lowercaseDescription.includes(lowercaseQuery);
+        });
+        setFilteredProductList({ isLoading: false, data: filteredItems })
+        console.log("Now")
+        // }, 1000)
     }
 
     /**
@@ -115,8 +160,11 @@ export const MenuListContextProvider = ({
         async function getAllProductList() {
             const res: any = await getAllProductListAPI()
             console.log("RES", res)
-            if (res.status)
-                setProductList(getItemDataFromCart(res.data, cartItems))
+            if (res.status) {
+                const processedItemList = getItemDataFromCart(res.data, cartItems)
+                setProductList({ isLoading: false, data: processedItemList })
+                setFilteredProductList({ isLoading: false, data: processedItemList })
+            }
         }
         getAllProductList()
     }, [])

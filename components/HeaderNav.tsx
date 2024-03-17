@@ -5,9 +5,12 @@ import CartButton from './ui/CartButton';
 import ProfileButton from './ui/ProfileButton';
 import Input from './ui/Input';
 import useAnimationTyping from '@/hooks/useAnimationTyping';
+import { tMenuListContext } from '@/types';
+import { useMenuListContext } from '@/context/menuListContext';
 
 export default function HeaderNav() {
-    const [placeholder] = useAnimationTyping("Search here...")
+    const { searchValue, handleOnChangeSearch }: tMenuListContext = useMenuListContext();
+    const [placeholder] = useAnimationTyping("Search here...", searchValue)
     return (
         <nav className='h-[--nav-height] flex items-center fixed top-0 left-0 right-0 px-[0.5rem] lg:px-[2rem] z-50 bg-secondary/95 w-screen border-b'>
             <div className='md:grid md:grid-cols-3 w-full flex items-center justify-between'>
@@ -17,6 +20,8 @@ export default function HeaderNav() {
                 <div>
                     <Input
                         placeholder={placeholder}
+                        value={searchValue}
+                        onChange={handleOnChangeSearch}
                     />
                 </div>
                 <div className='flex gap-2 items-end justify-end'>

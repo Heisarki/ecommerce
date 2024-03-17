@@ -11,3 +11,8 @@ export type tProduct = {
   };
   qty: number;
 };
+
+export type tProductList = {
+  data: tProduct[],
+  isLoading: boolean
+}
