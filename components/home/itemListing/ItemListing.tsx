@@ -20,10 +20,11 @@ export default function ItemListing() {
                     ? <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-3 grid-cols-2 gap-3'>
                         {
                             filteredProductList.data.map((itemEle: any) => (
-                                <Item
-                                    item={itemEle}
-                                    key={itemEle.id}
-                                />
+                                <div key={itemEle.id}>
+                                    <Item
+                                        item={itemEle}
+                                    />
+                                </div>
                             ))
                         }
                     </div>
