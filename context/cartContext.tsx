@@ -1,16 +1,14 @@
 "use client";
-import { tMenuListContext, tProduct } from "@/types";
+import { tProduct } from "@/types";
 import { tCartContext, tCartItem } from "@/types/cartContextType";
 import {
     createContext,
     useContext,
-    Dispatch,
-    SetStateAction,
     useState,
     ReactNode,
     useEffect,
 } from "react";
-import { useMenuListContext } from "./menuListContext";
+import ConfirmationDialog from "@/components/cart/ConfirmationDialog";
 
 const CartContext = createContext({} as tCartContext);
 
@@ -20,59 +18,40 @@ export const CartContextProvider = ({
     children: ReactNode
 }) => {
     const [cartItems, setCartItems] = useState([] as tCartItem[])
-    const { productList, setProductList }: tMenuListContext = useMenuListContext()
+    const [openRemoveItemDialog, setOpenRemoveItemDialog] = useState(false)
+    const [currentItemToRemove, setCurrentItemToRemove] = useState({} as tCartItem)
 
-    function handleAddToCart(e: any) {
-        // const id = e.target.getAttribute("data-id")
-        // const itemToAddToCart: tCartItem | any = productList.find((itemEle: tProduct) => String(itemEle.id) === String(id))
-        // if (itemToAddToCart) {
-        //     setCartItems([
-        //         ...cartItems,
-        //         {
-        //             ...itemToAddToCart,
-        //             qty: 1
-        //         }
-        //     ])
-        //     setProductList(productList.map((itemEle: tProduct) => {
-        //         if (String(itemEle.id) === String(id))
-        //             return { ...itemEle, qty: 1 }
-        //         return { ...itemEle }
-        //     }))
-        // }
-    }
     function handleIncrement(e: any) {
-        // const id = e.target.getAttribute("data-id")
-
-        // setCartItems(cartItems.map((itemEle: tCartItem) => {
-        //     if (String(itemEle.id) === String(id))
-        //         return { ...itemEle, qty: itemEle.qty + 1 }
-        //     return { ...itemEle }
-        // }))
-        // setProductList(productList.map((itemEle: tProduct) => {
-        //     if (String(itemEle.id) === String(id))
-        //         return { ...itemEle, qty: itemEle.qty + 1 }
-        //     return { ...itemEle }
-        // }))
+        const id = e.target.getAttribute("data-id")
+        setCartItems(cartItems.map((itemEle: tCartItem) => {
+            if (String(itemEle.id) === String(id))
+                return { ...itemEle, qty: itemEle.qty + 1 }
+            return { ...itemEle }
+        }))
     }
     function handleDecrement(e: any) {
-        // const id = e.target.getAttribute("data-id")
-        // const itemToAddToCart: tCartItem | any = productList.find((itemEle: tProduct) => String(itemEle.id) === String(id))
-        // if (itemToAddToCart) {
-        //     if (itemToAddToCart.qty === 1) {
-        //         setCartItems(cartItems.filter((itemEle: tCartItem) => String(itemEle.id) !== String(id)))
-        //     } else {
-        //         setCartItems(cartItems.map((itemEle: tCartItem) => {
-        //             if (String(itemEle.id) === String(id))
-        //                 return { ...itemEle, qty: itemEle.qty - 1 }
-        //             return { ...itemEle }
-        //         }))
-        //     }
-        //     setProductList(productList.map((itemEle: tProduct) => {
-        //         if (String(itemEle.id) === String(id))
-        //             return { ...itemEle, qty: itemEle.qty - 1 }
-        //         return { ...itemEle }
-        //     }))
-        // }
+        const id = e.target.getAttribute("data-id")
+        const itemToDecrement: tCartItem | any = cartItems.find((itemEle: tProduct) => String(itemEle.id) === String(id))
+        if (itemToDecrement) {
+            if (itemToDecrement.qty === 1) {
+                setOpenRemoveItemDialog(true)
+                setCurrentItemToRemove(itemToDecrement)
+            } else {
+                setCartItems(cartItems.map((itemEle: tCartItem) => {
+                    if (String(itemEle.id) === String(id))
+                        return { ...itemEle, qty: itemEle.qty - 1 }
+                    return { ...itemEle }
+                }))
+            }
+        }
+    }
+
+    function handleConfirm() {
+        setOpenRemoveItemDialog(false)
+        setCartItems(cartItems.filter((itemEle: tCartItem) => String(itemEle.id) !== String(currentItemToRemove.id)))
+    }
+    function handleCancel() {
+        setOpenRemoveItemDialog(false)
     }
 
     useEffect(() => {
@@ -81,13 +60,17 @@ export const CartContextProvider = ({
 
     const value = {
         cartItems, setCartItems,
-        handleAddToCart,
         handleIncrement,
         handleDecrement,
+        handleConfirm,
+        handleCancel,
+        openRemoveItemDialog,
+        currentItemToRemove,
     }
 
     return (
         <CartContext.Provider value={value}>
+            <ConfirmationDialog />
             {children}
         </CartContext.Provider>
     );

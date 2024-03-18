@@ -3,9 +3,12 @@ import { Dispatch, SetStateAction } from "react";
 export type tCartContext ={
     cartItems: tCartItem[],
   setCartItems: Dispatch<SetStateAction<tCartItem[]>>,
-  handleAddToCart: (e: any) => void,
   handleIncrement: (e: any) => void,
   handleDecrement: (e: any) => void,
+  handleConfirm: () => void,
+  handleCancel: () => void,
+  openRemoveItemDialog: boolean,
+  currentItemToRemove: tCartItem,
 }
 
 export type tCartItem = {
