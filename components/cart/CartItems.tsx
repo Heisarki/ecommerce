@@ -30,7 +30,7 @@ export default function CartItems() {
                                         </div>
                                         <div className='flex flex-col flex-grow justify-between'>
                                             <div className='flex flex-col gap-[1rem]'>
-                                                <h1 className='font-medium'>{itemEle.title}</h1>
+                                                <h1 className='font-medium text-sm'>{itemEle.title}</h1>
                                                 <h1 className='text-xs hidden md:flex'>
                                                     {
                                                         itemEle.description.length > 110
@@ -58,7 +58,7 @@ export default function CartItems() {
                                                         onClick={handleDecrement}
                                                         className='w-full text-center py-[0.1rem] hover:bg-accent hover:text-accent-foreground rounded-l-2xl border-r'
                                                     >-</span>
-                                                    <span className='cursor-default w-[100%] text-center h-full text-secondary-foreground flex items-center justify-center text-xs'>
+                                                    <span className='cursor-default w-[100%] text-center h-full text-secondary-foreground flex items-center justify-center text-xs font-semibold'>
                                                         {/* {item.qty} */}
                                                         {itemEle.qty}
                                                     </span>
