@@ -1,21 +1,15 @@
 "use client"
 import React from 'react'
-import { CgProfile } from "react-icons/cg";
-import { MoonIcon, SunIcon } from "@radix-ui/react-icons"
-import { useTheme } from "next-themes"
-import { CiLogout } from "react-icons/ci";
-import { GoGear } from "react-icons/go";
-import { PiAddressBookLight } from "react-icons/pi";
-
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/DropDownMenu"
+import { AddressIcon, LogoutIcon, ProfileIcon, SettingIcon } from '@/constants/icons';
+import { ModeToggle } from './ModeToggle';
 
 export default function ProfileButton() {
-    const { setTheme } = useTheme()
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -25,23 +19,22 @@ export default function ProfileButton() {
                     <span className="sr-only">Toggle theme</span>
                 </Button> */}
                 <div className='flex items-center gap-1 p-1 px-4 rounded-2xl md:cursor-pointer  hover:bg-secondary/25'>
-                    {/* <Profile /> */}
-                    <CgProfile />
-                    You
+                    <ProfileIcon />
+                    <h1 className='text-sm'>You</h1>
                 </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => setTheme("system")} className='flex gap-[0.5rem]'>
-                    <CgProfile />Profile
+                <DropdownMenuItem onClick={() => { }} className='flex gap-[0.5rem]'>
+                    <ProfileIcon />Profile
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("system")} className='flex gap-[0.5rem]'>
-                    <PiAddressBookLight /> Address
+                <DropdownMenuItem onClick={() => { }} className='flex gap-[0.5rem]'>
+                    <AddressIcon /> Address
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("system")} className='flex gap-[0.5rem]'>
-                    <GoGear /> Setting
+                <DropdownMenuItem onClick={() => { }} className='flex gap-[0.5rem]'>
+                    <SettingIcon /> Setting
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("system")} className='flex gap-[0.5rem]'>
-                    <CiLogout /> Log out
+                <DropdownMenuItem onClick={() => { }} className='flex gap-[0.5rem]'>
+                    <LogoutIcon /> Log out
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

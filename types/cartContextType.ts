@@ -1,11 +1,15 @@
 import { Dispatch, SetStateAction } from "react";
 
 export type tCartContext ={
-    cartItems: tCartItem[],
+  cartItems: tCartItem[],
   setCartItems: Dispatch<SetStateAction<tCartItem[]>>,
-  handleAddToCart: (e: any) => void,
   handleIncrement: (e: any) => void,
   handleDecrement: (e: any) => void,
+  handleConfirm: () => void,
+  handleCancel: () => void,
+  openRemoveItemDialog: boolean,
+  currentItemToRemove: tCartItem,
+  priceDetails: tPriceDetails,
 }
 
 export type tCartItem = {
@@ -20,4 +24,11 @@ export type tCartItem = {
       count: number;
     };
     qty: number;
+}
+
+export type tPriceDetails = {
+  subTotal: number,
+  deliveryCharges: number,
+  gst: number,
+  total: number,
 }

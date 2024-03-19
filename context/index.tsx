@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
-import { MenuListContextProvider } from './menuListContext'
-import { CartContextProvider } from './cartContext'
+import { MenuListContextProvider } from './menuListContext/menuListContext'
+import { CartContextProvider } from './cartContext/cartContext'
 
 export default function ContextProvider({
     children

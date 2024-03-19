@@ -10,7 +10,7 @@ export default function Item({
     item: tProduct,
 }) {
     return (
-        <Card className='flex flex-col p-[0.4rem] gap-[0.5rem] justify-between' data-id={item.id}>
+        <Card className='flex flex-col p-[0.4rem] gap-[0.5rem] h-full justify-between' data-id={item.id}>
             <div className='flex flex-col gap-[0.5rem]'>
                 <div className='w-full overflow-hidden flex items-start justify-start'>
                     <img
@@ -23,7 +23,7 @@ export default function Item({
                 </div>
                 <div>
                     <h1 className='text-xs font-medium'>
-                        ₹ {item.price}
+                        ₹ {item.price.toFixed(2)}
                     </h1>
                     <p className='text-xs'>
                         {

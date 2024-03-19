@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react'
 import { FaChevronLeft } from "react-icons/fa";
 import { FaAngleRight } from "react-icons/fa6";
 import { Card } from '../ui/Card';
-import { useMenuListContext } from '@/context/menuListContext';
+import { useMenuListContext } from '@/context/menuListContext/menuListContext';
 import { tMenuListContext } from '@/types';
 
 

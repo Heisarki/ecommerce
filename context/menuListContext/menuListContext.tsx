@@ -10,7 +10,7 @@ import {
     ReactNode,
     useEffect,
 } from "react";
-import { useCartContext } from "./cartContext";
+import { useCartContext } from "../cartContext/cartContext";
 import { getItemDataFromCart } from "@/utils";
 
 const MenuListContext = createContext({} as tMenuListContext);
