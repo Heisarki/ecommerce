@@ -18,8 +18,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="overflow-hidden">
-      <body className={`${inter.className} w-screen overflow-hidden`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} w-screen`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
