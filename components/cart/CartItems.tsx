@@ -16,7 +16,7 @@ export default function CartItems() {
                     cartItems.length > 0
                         ? (
                             cartItems.map((itemEle: tCartItem, index: number) => (
-                                <div className={`${cn('border-b py-[0.5rem] flex gap-[1rem] flex-col')} ${(index === cartItems.length - 1 && "border-b-0")}`}>
+                                <div key={itemEle.id} className={`${cn('border-b py-[0.5rem] flex gap-[1rem] flex-col')} ${(index === cartItems.length - 1 && "border-b-0")}`}>
                                     <div className='flex gap-[1rem]'>
                                         <div className='flex flex-col gap-[0.5rem] w-[5rem] md:w-[6rem] flex-shrink-0'>
                                             <div className='size-[5rem] md:size-[6rem] rounded-md overflow-hidden'>
