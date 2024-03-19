@@ -2,7 +2,7 @@
 import React from 'react'
 import Item from './Item'
 import { tMenuListContext } from '@/types'
-import { useMenuListContext } from '@/context/menuListContext'
+import { useMenuListContext } from '@/context/menuListContext/menuListContext'
 
 export default function ItemListing() {
     const { filteredProductList, selectedCategory }: tMenuListContext = useMenuListContext()

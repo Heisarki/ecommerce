@@ -1,6 +1,6 @@
 "use client";
 import { tProduct } from "@/types";
-import { tCartContext, tCartItem } from "@/types/cartContextType";
+import { tCartContext, tCartItem, tPriceDetails } from "@/types/cartContextType";
 import {
     createContext,
     useContext,
@@ -9,6 +9,7 @@ import {
     useEffect,
 } from "react";
 import ConfirmationDialog from "@/components/cart/ConfirmationDialog";
+import { initialPriceDetails } from "./cartInitialData";
 
 const CartContext = createContext({} as tCartContext);
 
@@ -20,6 +21,7 @@ export const CartContextProvider = ({
     const [cartItems, setCartItems] = useState([] as tCartItem[])
     const [openRemoveItemDialog, setOpenRemoveItemDialog] = useState(false)
     const [currentItemToRemove, setCurrentItemToRemove] = useState({} as tCartItem)
+    const [priceDetails, setPriceDetails] = useState(initialPriceDetails as tPriceDetails)
 
     function handleIncrement(e: any) {
         const id = e.target.getAttribute("data-id")
@@ -56,6 +58,14 @@ export const CartContextProvider = ({
 
     useEffect(() => {
         console.log(cartItems)
+        const calculatedSubTotal = cartItems.reduce((acc: number, itemEle: tCartItem) => (acc + (itemEle.price * itemEle.qty)), 0)
+        const calculatedGST = (calculatedSubTotal / 100) * 18
+        setPriceDetails({
+            subTotal: calculatedSubTotal,
+            deliveryCharges: cartItems.length * 40,
+            gst: calculatedGST,
+            total: calculatedGST + calculatedSubTotal + cartItems.length * 40,
+        })
     }, [cartItems])
 
     const value = {
@@ -66,6 +76,7 @@ export const CartContextProvider = ({
         handleCancel,
         openRemoveItemDialog,
         currentItemToRemove,
+        priceDetails,
     }
 
     return (

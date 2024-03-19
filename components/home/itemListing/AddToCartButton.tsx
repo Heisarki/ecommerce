@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from '../../ui/Button'
 import { tMenuListContext, tProduct } from '@/types';
-import { useMenuListContext } from '@/context/menuListContext';
+import { useMenuListContext } from '@/context/menuListContext/menuListContext';
 
 export default function AddToCartButton({ item }: { item: tProduct }) {
     const { handleAddToCart, handleIncrement, handleDecrement }: tMenuListContext = useMenuListContext();

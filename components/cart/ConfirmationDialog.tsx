@@ -11,7 +11,7 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/AlertDialog"
 import { tCartContext } from '@/types/cartContextType'
-import { useCartContext } from '@/context/cartContext'
+import { useCartContext } from '@/context/cartContext/cartContext'
 
 export default function ConfirmationDialog() {
     const { currentItemToRemove, openRemoveItemDialog, handleConfirm, handleCancel }: tCartContext = useCartContext();
