@@ -12,6 +12,7 @@ import {
 } from "react";
 import { useCartContext } from "../cartContext/cartContext";
 import { getItemDataFromCart } from "@/utils";
+import { toast } from "sonner"
 
 const MenuListContext = createContext({} as tMenuListContext);
 
@@ -67,6 +68,8 @@ export const MenuListContextProvider = ({
         const id = e.target.getAttribute("data-id")
         const itemToAddToCart: tCartItem | any = productList.data.find((itemEle: tProduct) => String(itemEle.id) === String(id))
         console.log(itemToAddToCart)
+        // toast(`${cartItems.length === 1 ? "1 item" : cartItems.length + " items"} added to cart`)
+        toast(`${itemToAddToCart.title} added to cart`)
         if (itemToAddToCart) {
             setCartItems([
                 ...cartItems,
