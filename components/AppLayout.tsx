@@ -9,7 +9,7 @@ export default function AppLayout({
     return (
         <div className='flex flex-col relative overflow-auto h-[100vh]'>
             <HeaderNav />
-            <section className='pt-[--nav-height] pb-[--nav-height] px-[0.5rem] lg:max-w-[80vw] flex self-center w-full py-[0.5rem]'>
+            <section className='pt-[--nav-height-plus-padding] pb-[--nav-height-plus-padding] px-[0.5rem] lg:max-w-[80vw] flex self-center w-full'>
                 {children}
             </section>
             <div className='fixed md:right-[2rem] right-[0.5rem] md:bottom-[1rem] bottom-[--nav-height-plus-padding]'>
