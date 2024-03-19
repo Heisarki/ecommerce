@@ -10,6 +10,7 @@ import {
 } from "react";
 import ConfirmationDialog from "@/components/cart/ConfirmationDialog";
 import { initialPriceDetails } from "./cartInitialData";
+import { toast } from "sonner";
 
 const CartContext = createContext({} as tCartContext);
 
@@ -51,6 +52,7 @@ export const CartContextProvider = ({
     function handleConfirm() {
         setOpenRemoveItemDialog(false)
         setCartItems(cartItems.filter((itemEle: tCartItem) => String(itemEle.id) !== String(currentItemToRemove.id)))
+        toast(`${currentItemToRemove.title} is removed from cart`)
     }
     function handleCancel() {
         setOpenRemoveItemDialog(false)
