@@ -3,11 +3,17 @@ import { PiAddressBookLight as AddressIcon } from "react-icons/pi";
 import { CgProfile as ProfileIcon } from "react-icons/cg";
 import { CiLogout as LogoutIcon } from "react-icons/ci";
 import { GoGear as SettingIcon } from "react-icons/go";
+// import { AiFillGoogleSquare as GoogleIcon } from "react-icons/ai";
+import { FaGooglePlusG as GoogleIcon } from "react-icons/fa";
+import { AiFillFacebook as FacebookIcon } from "react-icons/ai";
+// import { FaFacebookF as FacebookIcon} from "react-icons/fa";
 
 export {
     LogoIcon,
     AddressIcon,
     ProfileIcon,
     LogoutIcon,
-    SettingIcon
+    SettingIcon,
+    GoogleIcon,
+    FacebookIcon,
 }

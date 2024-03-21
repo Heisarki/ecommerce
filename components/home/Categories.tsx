@@ -9,7 +9,6 @@ import { tMenuListContext } from '@/types';
 
 export default function Categories() {
     const { categoryList, handleClickCategory }: tMenuListContext = useMenuListContext();
-
     /**
      * Functionality for scrolling on 
      * clicking the arrow button
