@@ -29,15 +29,6 @@ export default function CreateAccount() {
                     <label className='text-xs'>Confirm Password</label>
                     <Input placeholder='password' type='password' />
                 </div>
-
-                <div className='flex flex-col gap-[0.3rem]'>
-                    <label className='text-xs'>Confirm Password</label>
-                    <Input placeholder='password' type='password' />
-                </div>
-                <div className='flex flex-col gap-[0.3rem]'>
-                    <label className='text-xs'>Confirm Password</label>
-                    <Input placeholder='password' type='password' />
-                </div>
                 <Button className='w-full'>
                     Create account
                 </Button>
