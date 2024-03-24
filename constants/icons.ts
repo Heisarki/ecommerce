@@ -7,6 +7,9 @@ import { GoGear as SettingIcon } from "react-icons/go";
 import { FaGooglePlusG as GoogleIcon } from "react-icons/fa";
 import { AiFillFacebook as FacebookIcon } from "react-icons/ai";
 // import { FaFacebookF as FacebookIcon} from "react-icons/fa";
+import { GoHome as HomeIcon } from "react-icons/go";
+import { GiShoppingCart as CartIcon } from "react-icons/gi";
+import { RxReader as OrdersIcon } from "react-icons/rx";
 
 export {
     LogoIcon,
@@ -16,4 +19,7 @@ export {
     SettingIcon,
     GoogleIcon,
     FacebookIcon,
+    HomeIcon,
+    CartIcon,
+    OrdersIcon
 }

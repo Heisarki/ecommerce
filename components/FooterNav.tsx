@@ -3,36 +3,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
-import { GoHome } from "react-icons/go";
-import { GiShoppingCart } from "react-icons/gi";
-import { RxReader } from "react-icons/rx";
 import { tCartContext } from '@/types/cartContextType'
 import { useCartContext } from '@/context/cartContext/cartContext'
-
-
-export const NAVLIST = [
-    {
-        id: 1,
-        title: "Home",
-        // icon: homeIcon,
-        icon: <GoHome />,
-        route: "/",
-    },
-    {
-        id: 2,
-        title: "orders",
-        // icon: teamIcon,
-        icon: <RxReader />,
-        route: "/orders",
-    },
-    {
-        id: 3,
-        title: "Cart",
-        icon: <GiShoppingCart />,
-        // icon: CartIcon,
-        route: "/cart",
-    }
-] as const
+import { MOBILE_FOOTER_NAV_LIST, ROUTES } from '@/constants/common'
 
 export default function FooterNav() {
     const pathname = usePathname()
@@ -40,7 +13,7 @@ export default function FooterNav() {
     return (
         <div className='h-[--nav-height] md:hidden flex fixed bottom-[-2px] left-0 right-0 px-4 justify-between items-center border-t-[1px] bg-secondary' >
             {
-                NAVLIST.map(ele => (
+                MOBILE_FOOTER_NAV_LIST.map(ele => (
                     <div key={ele.id} className='relative'>
                         {
                             cartItems.length > 0 && ele.title === "Cart"
@@ -55,7 +28,7 @@ export default function FooterNav() {
                             className={`${pathname === ele.route && 'bg-primary text-white'} flex flex-col justify-center items-center gap-1 px-3 pt-1 rounded-md cursor-pointer text-secondary-foreground`}
                             href={ele.route}
                         >
-                            {ele.icon}
+                            <ele.icon />
                             <p className='text-xs'>{ele.title}</p>
                         </Link>
                     </div>

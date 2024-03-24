@@ -162,7 +162,6 @@ export const MenuListContextProvider = ({
     useEffect(() => {
         async function getAllProductList() {
             const res: any = await getAllProductListAPI()
-            console.log("RES", res)
             if (res.status) {
                 const processedItemList = getItemDataFromCart(res.data, cartItems)
                 setProductList({ isLoading: false, data: processedItemList })

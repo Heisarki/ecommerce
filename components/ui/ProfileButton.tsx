@@ -10,9 +10,12 @@ import { AddressIcon, LogoutIcon, ProfileIcon, SettingIcon } from '@/constants/i
 import { ModeToggle } from './ModeToggle';
 import { tLoginInCreateAccountContext } from '@/types';
 import { useLoginInCreateAccountContext } from '@/context/loginCreateAccount/LoginCreateAccount';
+import { useRouter } from 'next/navigation';
+import { ROUTES } from '@/constants/common';
 
 export default function ProfileButton() {
-    const { isLoggedIn, handleOpenLoginDialog }: tLoginInCreateAccountContext = useLoginInCreateAccountContext();
+    const { handleLogout, isLoggedIn, handleOpenLoginDialog }: tLoginInCreateAccountContext = useLoginInCreateAccountContext();
+    const router = useRouter();
     return (
         <DropdownMenu>
             {
@@ -37,16 +40,16 @@ export default function ProfileButton() {
 
             }
             <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => { }} className='flex gap-[0.5rem]'>
+                <DropdownMenuItem onClick={() => router.push(ROUTES.profile.route)} className='flex gap-[0.5rem]'>
                     <ProfileIcon />Profile
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => { }} className='flex gap-[0.5rem]'>
+                <DropdownMenuItem onClick={() => router.push(ROUTES.address.route)} className='flex gap-[0.5rem]'>
                     <AddressIcon /> Address
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => { }} className='flex gap-[0.5rem]'>
+                {/* <DropdownMenuItem onClick={() => router.push()} className='flex gap-[0.5rem]'>
                     <SettingIcon /> Setting
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => { }} className='flex gap-[0.5rem]'>
+                </DropdownMenuItem> */}
+                <DropdownMenuItem onClick={handleLogout} className='flex gap-[0.5rem]'>
                     <LogoutIcon /> Log out
                 </DropdownMenuItem>
             </DropdownMenuContent>
