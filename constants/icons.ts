@@ -10,6 +10,9 @@ import { AiFillFacebook as FacebookIcon } from "react-icons/ai";
 import { GoHome as HomeIcon } from "react-icons/go";
 import { GiShoppingCart as CartIcon } from "react-icons/gi";
 import { RxReader as OrdersIcon } from "react-icons/rx";
+import { IoIosMale as MaleIcon} from "react-icons/io";
+import { IoIosFemale as FemaleIcon} from "react-icons/io";
+
 
 export {
     LogoIcon,
@@ -21,5 +24,7 @@ export {
     FacebookIcon,
     HomeIcon,
     CartIcon,
-    OrdersIcon
+    OrdersIcon,
+    MaleIcon,
+    FemaleIcon,
 }

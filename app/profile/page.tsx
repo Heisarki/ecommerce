@@ -1,7 +1,10 @@
+import Profile from '@/components/profile/Profile'
 import React from 'react'
 
-export default function Profile() {
+export default function ProfilePage() {
     return (
-        <div>Profile</div>
+        <div className='w-full'>
+            <Profile />
+        </div>
     )
 }
