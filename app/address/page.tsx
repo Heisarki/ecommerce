@@ -1,7 +1,10 @@
+import Address from '@/components/address/Address'
 import React from 'react'
 
-export default function Address() {
+export default function AddressPage() {
     return (
-        <div>Address</div>
+        <div className='w-full'>
+            <Address />
+        </div>
     )
 }

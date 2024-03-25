@@ -11,7 +11,8 @@ import { GoHome as HomeIcon } from "react-icons/go";
 import { GiShoppingCart as CartIcon } from "react-icons/gi";
 import { RxReader as OrdersIcon } from "react-icons/rx";
 import { IoIosMale as MaleIcon} from "react-icons/io";
-import { IoIosFemale as FemaleIcon} from "react-icons/io";
+import { IoIosFemale as FemaleIcon } from "react-icons/io";
+import { SlOptionsVertical as ThreeDotIcon } from "react-icons/sl";
 
 
 export {
@@ -27,4 +28,5 @@ export {
     OrdersIcon,
     MaleIcon,
     FemaleIcon,
+    ThreeDotIcon,
 }
