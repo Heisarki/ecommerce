@@ -4,6 +4,7 @@ import { Card, CardContent, CardFooter, CardHeader } from '../ui/Card'
 import { Button } from '../ui/Button'
 import { tCartContext } from '@/types/cartContextType'
 import { useCartContext } from '@/context/cartContext/cartContext'
+import ClickRipple from '../ui/ClickRipple'
 
 export default function BillingDetails() {
     const { priceDetails, cartItems }: tCartContext = useCartContext()

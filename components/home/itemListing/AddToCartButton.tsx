@@ -2,6 +2,7 @@ import React from 'react'
 import { Button } from '../../ui/Button'
 import { tMenuListContext, tProduct } from '@/types';
 import { useMenuListContext } from '@/context/menuListContext/menuListContext';
+import ClickRipple from '@/components/ui/ClickRipple';
 
 export default function AddToCartButton({ item }: { item: tProduct }) {
     const { handleAddToCart, handleIncrement, handleDecrement }: tMenuListContext = useMenuListContext();
@@ -9,24 +10,27 @@ export default function AddToCartButton({ item }: { item: tProduct }) {
         <>
             {
                 item.qty > 0
-                    ? <button className='md:cursor-pointer w-[85%]'>
+                    ? <div className='md:cursor-pointer w-[85%]'>
                         <span className='w-full rounded-2xl flex items-center  border border-input bg-background'>
-                            <span
-                                data-id={item.id}
-                                onClick={handleDecrement}
-                                className='w-full text-center py-[0.1rem] hover:bg-accent hover:text-accent-foreground rounded-l-2xl border-r'
-                            >-</span>
+                            <Button
+                                variant={"ghost"}
+                                onClick={() => handleDecrement(item.id)}
+                                className='relative overflow-hidden w-full text-center hover:bg-accent hover:text-accent-foreground rounded-l-2xl border-r h-[1.75rem]'
+                            >
+                                -
+                            </Button>
                             <span className='cursor-default w-[100%] text-center h-full text-secondary-foreground flex items-center justify-center text-xs'>{item.qty}</span>
-                            <span
-                                data-id={item.id}
-                                onClick={handleIncrement}
-                                className='w-full text-center py-[0.1rem] hover:bg-accent hover:text-accent-foreground rounded-r-2xl border-l'
-                            >+</span>
+                            <Button
+                                variant={"ghost"}
+                                onClick={() => handleIncrement(item.id)}
+                                className='relative w-full text-center hover:bg-accent hover:text-accent-foreground rounded-r-2xl border-l overflow-hidden  h-[1.75rem]'
+                            >
+                                +
+                            </Button>
                         </span>
-                    </button>
+                    </div>
                     : <Button
-                        data-id={item.id}
-                        onClick={handleAddToCart}
+                        onClick={() => handleAddToCart(item.id)}
                         className='h-[1.75rem] rounded-2xl text-xs w-[85%]'
                     >
                         Add to cart

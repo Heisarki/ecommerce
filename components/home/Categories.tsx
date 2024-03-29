@@ -5,11 +5,11 @@ import { FaAngleRight } from "react-icons/fa6";
 import { Card } from '../ui/Card';
 import { useMenuListContext } from '@/context/menuListContext/menuListContext';
 import { tMenuListContext } from '@/types';
+import ClickRipple from '../ui/ClickRipple';
 
 
 export default function Categories() {
     const { categoryList, handleClickCategory }: tMenuListContext = useMenuListContext();
-
     /**
      * Functionality for scrolling on 
      * clicking the arrow button
@@ -34,8 +34,9 @@ export default function Categories() {
                 <div className='w-[2rem] absolute left-0 top-[20%] bottom-[20%] z-10 md:block hidden'>
                     <div
                         onClick={handleScrollLeft}
-                        className='flex items-center justify-center h-[80%] rounded-r-md md:cursor-pointer bg-primary'
+                        className='relative overflow-hidden flex items-center justify-center h-[80%] rounded-r-md md:cursor-pointer bg-primary'
                     >
+                        <ClickRipple />
                         <FaChevronLeft color='#fff' />
                     </div>
                 </div>
@@ -65,8 +66,9 @@ export default function Categories() {
                 <div className='w-[2rem] absolute right-0 top-[20%] bottom-[20%] z-5 md:block hidden'>
                     <div
                         onClick={handleScrollRight}
-                        className='flex items-center justify-center h-[80%] bg-primary rounded-l-md md:cursor-pointer'
+                        className='relative overflow-hidden flex items-center justify-center h-[80%] bg-primary rounded-l-md md:cursor-pointer'
                     >
+                        <ClickRipple />
                         <FaAngleRight color='#fff' />
                     </div>
                 </div>

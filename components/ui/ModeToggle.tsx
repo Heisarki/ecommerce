@@ -11,6 +11,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/DropDownMenu"
+import ClickRipple from "./ClickRipple"
 
 export function ModeToggle() {
     const { setTheme } = useTheme()

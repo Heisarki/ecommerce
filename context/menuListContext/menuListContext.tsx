@@ -64,8 +64,7 @@ export const MenuListContextProvider = ({
      * Funtions to perform add item,
      * increment, decrement item to cart
      */
-    function handleAddToCart(e: any) {
-        const id = e.target.getAttribute("data-id")
+    function handleAddToCart(id: string | number) {
         const itemToAddToCart: tCartItem | any = productList.data.find((itemEle: tProduct) => String(itemEle.id) === String(id))
         console.log(itemToAddToCart)
         // toast(`${cartItems.length === 1 ? "1 item" : cartItems.length + " items"} added to cart`)
@@ -90,9 +89,7 @@ export const MenuListContextProvider = ({
             setFilteredProductList(modifiedProductList)
         }
     }
-    function handleIncrement(e: any) {
-        const id = e.target.getAttribute("data-id")
-
+    function handleIncrement(id: string | number) {
         setCartItems(cartItems.map((itemEle: tCartItem) => {
             if (String(itemEle.id) === String(id))
                 return { ...itemEle, qty: itemEle.qty + 1 }
@@ -109,8 +106,7 @@ export const MenuListContextProvider = ({
         setProductList(modifiedProductList)
         setFilteredProductList(modifiedProductList)
     }
-    function handleDecrement(e: any) {
-        const id = e.target.getAttribute("data-id")
+    function handleDecrement(id: string | number) {
         const itemToAddToCart: tCartItem | any = productList.data.find((itemEle: tProduct) => String(itemEle.id) === String(id))
         if (itemToAddToCart) {
             if (itemToAddToCart.qty === 1) {
@@ -162,7 +158,6 @@ export const MenuListContextProvider = ({
     useEffect(() => {
         async function getAllProductList() {
             const res: any = await getAllProductListAPI()
-            console.log("RES", res)
             if (res.status) {
                 const processedItemList = getItemDataFromCart(res.data, cartItems)
                 setProductList({ isLoading: false, data: processedItemList })
