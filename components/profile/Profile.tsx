@@ -3,6 +3,7 @@ import { Button } from '../ui/Button'
 import { FemaleIcon, MaleIcon, ProfileIcon } from '@/constants'
 import Input from '../ui/Input'
 import { Card } from '../ui/Card'
+import ClickRipple from '../ui/ClickRipple'
 
 export default function Profile() {
     return (
@@ -51,13 +52,15 @@ export default function Profile() {
                     <div className='w-full flex flex-col gap-[0.5rem]'>
                         <label>Gender</label>
                         <div className='flex gap-[1rem]'>
-                            <Card className='p-[0.5rem] flex flex-col gap-[0.5rem] md:w-[5.5rem] w-[5rem] items-center md:cursor-pointer cursor-default'>
+                            <Card className='p-[0.5rem] flex flex-col gap-[0.5rem] md:w-[5.5rem] w-[5rem] items-center md:cursor-pointer cursor-default overflow-hidden relative'>
+                                <ClickRipple />
                                 <div className='md:size-[2rem] size-[2rem]'>
                                     <MaleIcon size={"100%"} />
                                 </div>
                                 <p className='md:text-base text-xs'>Male</p>
                             </Card>
-                            <Card className='p-[0.5rem] flex flex-col gap-[0.5rem] md:w-[5.5rem] w-[5rem] items-center md:cursor-pointer cursor-default'>
+                            <Card className='p-[0.5rem] flex flex-col gap-[0.5rem] md:w-[5.5rem] w-[5rem] items-center md:cursor-pointer cursor-default overflow-hidden relative'>
+                                <ClickRipple />
                                 <div className='md:size-[2rem] size-[2rem]'>
                                     <FemaleIcon size={"100%"} />
                                 </div>

@@ -22,7 +22,7 @@ export default function Item({
                 <div className='border-b ml-[-0.4rem] mr-[-0.4rem]'>
                 </div>
                 <div className='flex flex-col gap-[0.5rem]'>
-                    <h1 className='text-xs font-medium bg-primary text-primary-foreground rounded-md w-max px-[0.5rem] py-[0.2rem]'>
+                    <h1 className='text-xs bg-primary text-primary-foreground rounded-md w-max px-[0.5rem] py-[0.2rem]'>
                         ₹ {item.price.toFixed(2)}
                     </h1>
                     <h1 className='text-xs font-semibold'>

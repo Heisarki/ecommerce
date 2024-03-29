@@ -11,9 +11,9 @@ export type tMenuListContext = {
     selectedCategory: tCategory,
     setSelectedCategory: Dispatch<SetStateAction<tCategory>>,
     handleClickCategory: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void,
-    handleAddToCart: (e: any) => void,
-    handleIncrement: (e: any) => void,
-    handleDecrement: (e: any) => void,
+    handleAddToCart: (id: string | number) => void,
+    handleIncrement: (id: string | number) => void,
+    handleDecrement: (id: string | number) => void,
     searchValue: string,
     handleOnChangeSearch:(e: any) => void,
 }

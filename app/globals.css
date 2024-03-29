@@ -121,3 +121,62 @@
   background: #888; 
   border-radius: 10px;
 }
+
+/* Ripple */
+.ripple{
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* button{
+  border: none;
+  width: 200px;
+  height: 50px;
+  margin: 100px;
+  overflow: hidden;
+  border: 1px solid #eee;
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  background-color:green;
+  background-color: chocolate;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+} */
+.button:hover{
+  opacity: 0.9;
+}
+.ripple::before{
+  content: '';
+  z-index: -1;
+  position: absolute;
+  top: var(--pseudo-top);
+  left: var(--pseudo-left);  
+  transform: translate(-50%, -50%);
+  display: none;
+  background-color: black;
+  width: 0px;
+  height: 0px;
+  border-radius: 100%;
+  opacity: 0.2;  
+  /* transition: all 0.5s linear; */
+  /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+  animation: expand 0.5s linear forwards;
+}
+.ripple.expand:before {
+  display: flex; /* Change display to flex */
+}
+
+@keyframes expand{
+  0%{
+      width: 0px;
+      height: 0px;
+  }
+  100%{
+      width: 100vh;
+      height: 100vh;
+  }
+}

@@ -24,16 +24,14 @@ export const CartContextProvider = ({
     const [currentItemToRemove, setCurrentItemToRemove] = useState({} as tCartItem)
     const [priceDetails, setPriceDetails] = useState(initialPriceDetails as tPriceDetails)
 
-    function handleIncrement(e: any) {
-        const id = e.target.getAttribute("data-id")
+    function handleIncrement(id: string | number) {
         setCartItems(cartItems.map((itemEle: tCartItem) => {
             if (String(itemEle.id) === String(id))
                 return { ...itemEle, qty: itemEle.qty + 1 }
             return { ...itemEle }
         }))
     }
-    function handleDecrement(e: any) {
-        const id = e.target.getAttribute("data-id")
+    function handleDecrement(id: string | number) {
         const itemToDecrement: tCartItem | any = cartItems.find((itemEle: tProduct) => String(itemEle.id) === String(id))
         if (itemToDecrement) {
             if (itemToDecrement.qty === 1) {
