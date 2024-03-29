@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { tCartContext, tCartItem } from '@/types/cartContextType'
 import { useCartContext } from '@/context/cartContext/cartContext'
 import { cn } from '@/lib/utils'
-import ClickRipple from '../ui/ClickRipple'
 import { Button } from '../ui/Button'
 
 export default function CartItems() {
