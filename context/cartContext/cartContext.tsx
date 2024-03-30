@@ -9,7 +9,7 @@ import {
     useEffect,
 } from "react";
 import ConfirmationDialog from "@/components/cart/ConfirmationDialog";
-import { initialPriceDetails } from "./cartInitialData";
+import { initialPriceDetails } from "./initialCartContextData";
 import { toast } from "sonner";
 
 const CartContext = createContext({} as tCartContext);

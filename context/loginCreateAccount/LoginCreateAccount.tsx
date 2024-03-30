@@ -13,7 +13,7 @@ import {
 } from "react";
 import { auth } from '../../config'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth'
-import { userDetailsInitialData, authInputInitialData } from "./loginCreateAccountInitialData";
+import { initialUserDetailsData, initialAuthInputData } from "./initialLoginCreateAccountData";
 import { toast } from "sonner";
 import { useLocalStorage } from "@/hooks";
 
@@ -26,10 +26,10 @@ export const LoginInCreateAccountContextProvider = ({
 }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     // useLocalStorage("_ecom_is_logged_in", false)
-    const [userDetails, setUserDetails] = useState(userDetailsInitialData as tUserDetails)
+    const [userDetails, setUserDetails] = useState(initialUserDetailsData as tUserDetails)
     const [loginOrCreateAccount, setLoginOrCreateAccount] = useState(LOGIN_CREATE_ACCOUNT.login)
     const [openLoginDialog, setOpenLoginDialog] = useState(false)
-    const [authInputData, setAuthInputData] = useState(authInputInitialData as tAuthInputData)
+    const [authInputData, setAuthInputData] = useState(initialAuthInputData as tAuthInputData)
     const value = {
         isLoggedIn,
         openLoginDialog,
@@ -138,7 +138,7 @@ export const LoginInCreateAccountContextProvider = ({
         try {
             const response: any = await signInWithEmailAndPassword(auth, authInputData.emailOrPhoneNo, authInputData.currentPassword)
             console.log("CREATE ACC", response)
-            setAuthInputData(authInputInitialData)
+            setAuthInputData(initialAuthInputData)
             setOpenLoginDialog(false)
             toast(`Login successfull with ${response?.user?.email}`)
             setUserDetails((prev: tUserDetails) => ({
@@ -169,7 +169,7 @@ export const LoginInCreateAccountContextProvider = ({
         try {
             const response = await createUserWithEmailAndPassword(auth, authInputData.emailOrPhoneNo, authInputData.currentPassword)
             console.log("CREATE ACC", response)
-            setAuthInputData(authInputInitialData)
+            setAuthInputData(initialAuthInputData)
             setOpenLoginDialog(false)
             toast("Account created successfully!")
             setUserDetails({
@@ -196,7 +196,7 @@ export const LoginInCreateAccountContextProvider = ({
             checkIfUserLoggedIn()
             setIsLoggedIn(false)
             toast("Logout successfull!")
-            setUserDetails(userDetailsInitialData)
+            setUserDetails(initialUserDetailsData)
         } catch (err: any) {
             checkIfUserLoggedIn()
             console.log(err)

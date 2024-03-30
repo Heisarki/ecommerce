@@ -7,11 +7,13 @@ export default function Input({
     onChange,
     placeholder,
     type = "text",
+    name = placeholder,
 }: {
     type?: string,
     value?: string,
     onChange?: (e: any) => void,
     placeholder?: string,
+    name?: string,
 }) {
     return (
         <div className='relative flex flex-grow'>
@@ -22,6 +24,7 @@ export default function Input({
                 </div>
             }
             <input
+                name={name}
                 className={`${cn("border focus:border focus:outline-none px-[0.5rem] py-[0.5rem] rounded-md text-xs w-[100%]")} ${type === "search" ? "pl-[1.8rem]" : ""}`}
                 type={type}
                 value={value}

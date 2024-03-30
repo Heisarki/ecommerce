@@ -9,7 +9,6 @@ export default function ClickRipple() {
   })
   function handleClick(e: any) {
     const { offsetX, offsetY } = e.nativeEvent;
-    console.log(e)
     setXy({
       x: offsetX,
       y: offsetY,

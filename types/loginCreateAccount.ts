@@ -13,7 +13,8 @@ export type tLoginInCreateAccountContext = {
     handleConfirmPasswordChange: (e: any) => void,
     handleFirstNameChange: (e: any) => void,
     handleLastNameChange: (e: any) => void,
-    handleLogout:() => void,
+    handleLogout: () => void,
+    userDetails: tUserDetails,
 }
 
 export type tAuthInputData = {
