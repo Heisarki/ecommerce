@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 
-export default function ClickRipple() {
+export default function ClickRipple({ className }: { className?: any }) {
   const [xy, setXy] = React.useState({
     x: 0,
     y: 0,

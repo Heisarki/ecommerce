@@ -10,7 +10,6 @@ import { useMenuListContext } from '@/context/menuListContext/menuListContext';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation'
 import { LogoIcon } from '@/constants/icons';
-import LoginCreateAccountDialog from './loginCreateAccount/LoginCreateAccountDialog';
 
 export default function HeaderNav() {
     const { searchValue, handleOnChangeSearch }: tMenuListContext = useMenuListContext();
@@ -43,7 +42,6 @@ export default function HeaderNav() {
                     </div>
                 </div>
             </div>
-            <LoginCreateAccountDialog />
         </nav>
     )
 }

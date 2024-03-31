@@ -16,6 +16,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthState
 import { initialUserDetailsData, initialAuthInputData } from "./initialLoginCreateAccountData";
 import { toast } from "sonner";
 import { useLocalStorage } from "@/hooks";
+import LoginCreateAccountDialog from "@/components/loginCreateAccount/LoginCreateAccountDialog";
 
 const LoginInCreateAccountContext = createContext({} as tLoginInCreateAccountContext);
 
@@ -207,6 +208,7 @@ export const LoginInCreateAccountContextProvider = ({
     return (
         <LoginInCreateAccountContext.Provider value={value}>
             {children}
+            <LoginCreateAccountDialog />
         </LoginInCreateAccountContext.Provider>
     );
 };

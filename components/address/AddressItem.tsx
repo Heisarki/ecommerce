@@ -43,7 +43,6 @@ export default function AddressItem({
             <div>
                 <p className='font-light text-sm'>{address?.areaAndStreet + " " + address?.cityDistrictTown + ", " + address?.state} - <span className='font-semibold'>{address?.pinCode}</span></p>
             </div>
-
         </div >
     )
 }

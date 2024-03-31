@@ -12,13 +12,13 @@ export default function ContextProvider({
 }) {
     return (
         <LoginInCreateAccountContextProvider>
-            <CartContextProvider>
-                <MenuListContextProvider>
-                    <AddressContextProvider>
+            <AddressContextProvider>
+                <CartContextProvider>
+                    <MenuListContextProvider>
                         {children}
-                    </AddressContextProvider>
-                </MenuListContextProvider>
-            </CartContextProvider>
+                    </MenuListContextProvider>
+                </CartContextProvider>
+            </AddressContextProvider>
         </LoginInCreateAccountContextProvider>
     )
 }

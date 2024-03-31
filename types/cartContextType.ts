@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import { tAddressInputData } from ".";
 
 export type tCartContext ={
   cartItems: tCartItem[],
@@ -10,6 +11,13 @@ export type tCartContext ={
   openRemoveItemDialog: boolean,
   currentItemToRemove: tCartItem,
   priceDetails: tPriceDetails,
+  deliveryAddress: tAddressInputData,
+  handleOpenChangeDeliveryAddressClick: () => void,
+  openSelectDeliveryRadioGroup: boolean,
+  setOpenSelectDeliveryRadioGroup: any,
+  handleOnSelectDeliveryAddress: (e: any) => void,
+  selectedAddress: string,
+  handleProceedToPayClick: () => void,
 }
 
 export type tCartItem = {

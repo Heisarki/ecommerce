@@ -1,17 +1,19 @@
+import { Dispatch } from "react";
+
 export type tAddressContext = {
     addressInputData: tAddressInputData;
-    // handleAddressInputNameChange: (e: any) => void;
-    // handleAddressInputPhoneNoChange: (e: any) => void;
     handleAddressInputChange: (e: any) => void;
     handleAddressTypeInputChange: (e: any) => void;
-    handleSaveAddress: () => void;
-    handleCancelSaveAddress: () => void;
+    handleSaveNewAddressClick: () => void;
+    handleCancelSaveNewAddressClick: () => void;
     addressList: tAddressInputData[];
+    setAddressList: any,
     displayAddressForm: tDisplayAddressForm;
     handleAddNewAddressClick: () => void;
     handleEditAddressClick: (address: tAddressInputData) => void;
     handleSaveEditedAddressClick: () => void;
     handleCancelEditedAddressClick: () => void;
+    getAllAddressList: () => void;
 }
 
 export type tAddressInputData = {
@@ -26,6 +28,9 @@ export type tAddressInputData = {
     altPhoneNumber: string;
     addressType: string;
     editAddressFlag: boolean;
+    createdAt: string,
+    updatedAt: string;
+    selectedDeliveryAddressFlag: boolean;
 }
 
 export type tDisplayAddressForm = {

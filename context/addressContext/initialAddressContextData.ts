@@ -10,6 +10,9 @@ const initialAddressInputData = {
     altPhoneNumber: "",
     addressType: "home",
     editAddressFlag: false,
+    createdAt: "",
+    updatedAt: "",
+    selectedDeliveryAddressFlag: false,
 }
 
 const initialDisplayAddressFormData = {

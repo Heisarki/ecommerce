@@ -6,7 +6,12 @@ import { tLoginInCreateAccountContext } from '@/types'
 import { useLoginInCreateAccountContext } from '@/context/loginCreateAccount/LoginCreateAccount'
 
 export default function Login() {
-    const { authInputData, handleLogin, handleEmailPhoneNoChange, handleCurrentPasswordChange }: tLoginInCreateAccountContext = useLoginInCreateAccountContext();
+    const {
+        authInputData,
+        handleLogin,
+        handleEmailPhoneNoChange,
+        handleCurrentPasswordChange
+    }: tLoginInCreateAccountContext = useLoginInCreateAccountContext();
     return (
         <>
             <div className='w-full flex flex-col gap-[1rem] border p-[1rem] rounded-md'>
