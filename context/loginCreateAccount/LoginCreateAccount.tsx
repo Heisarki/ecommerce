@@ -35,6 +35,7 @@ export const LoginInCreateAccountContextProvider = ({
         isLoggedIn,
         openLoginDialog,
         handleOpenLoginDialog,
+        handleCloseLoginDialog,
         handleGotoLogin,
         handleGotoCreateAccount,
         loginOrCreateAccount,
@@ -83,6 +84,9 @@ export const LoginInCreateAccountContextProvider = ({
 
     function handleOpenLoginDialog() {
         setOpenLoginDialog(true)
+    }
+    function handleCloseLoginDialog() {
+        setOpenLoginDialog(false)
     }
 
     function handleGotoLogin() {

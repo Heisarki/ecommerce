@@ -2,6 +2,7 @@ export type tLoginInCreateAccountContext = {
     isLoggedIn: boolean,
     openLoginDialog: boolean,
     handleOpenLoginDialog: () => void,
+    handleCloseLoginDialog: () => void,
     handleGotoCreateAccount: () => void,
     handleGotoLogin: () => void,
     loginOrCreateAccount: string,

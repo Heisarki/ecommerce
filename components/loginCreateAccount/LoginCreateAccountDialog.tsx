@@ -1,20 +1,20 @@
 import React from 'react'
-import {
-  AlertDialog,
-  AlertDialogContent,
-} from "@/components/ui/AlertDialog"
 import { tLoginInCreateAccountContext } from '@/types'
 import { useLoginInCreateAccountContext } from '@/context/loginCreateAccount/LoginCreateAccount'
 import CreateAccount from './CreateAccount';
 import Login from './Login';
 import { LOGIN_CREATE_ACCOUNT } from '@/constants/common';
 import { cn } from '@/lib/utils';
+import {
+  Dialog,
+  DialogContent,
+} from '../ui/Dialog';
 
 export default function LoginCreateAccountDialog() {
-  const { openLoginDialog, loginOrCreateAccount, handleGotoCreateAccount, handleGotoLogin }: tLoginInCreateAccountContext = useLoginInCreateAccountContext();
+  const { openLoginDialog, loginOrCreateAccount, handleGotoCreateAccount, handleGotoLogin, handleCloseLoginDialog }: tLoginInCreateAccountContext = useLoginInCreateAccountContext();
   return (
-    <AlertDialog open={openLoginDialog}>
-      <AlertDialogContent className={`${'max-w-[23rem] max-h-[80dvh] overflow-auto overflow-x-hidden'} ${"DialogBox"}`}>
+    <Dialog open={openLoginDialog} onOpenChange={handleCloseLoginDialog}>
+      <DialogContent className={`${'max-w-[23rem] max-h-[80dvh] overflow-auto overflow-x-hidden'} ${"DialogBox"}`}>
         <div className='grid grid-cols-11'>
           <p
             onClick={handleGotoLogin}
@@ -35,7 +35,7 @@ export default function LoginCreateAccountDialog() {
             ? <Login />
             : <CreateAccount />
         }
-      </AlertDialogContent>
-    </AlertDialog>
+      </DialogContent>
+    </Dialog>
   )
 }

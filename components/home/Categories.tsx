@@ -50,15 +50,15 @@ export default function Categories() {
                                 data-id={categoryEle.id}
                                 key={categoryEle.id || index}
                                 onClick={handleClickCategory}
-                                className='rounded-xl border justify-between flex-grow w-[300px] h-[200px] flex flex-shrink-0 flex-col md:cursor-pointer gap-[0.5rem]'
+                                className='rounded-xl border justify-between flex-grow w-[300px] h-[200px] flex flex-shrink-0 flex-col md:cursor-pointer gap-[0.5rem] items-center'
                             >
                                 <img
                                     data-id={categoryEle.id}
                                     src={categoryEle.image}
                                     alt={categoryEle.id}
-                                    className='rounded-lg object-contain h-[150px] p-[.5rem]'
+                                    className='rounded-lg object-contain h-[150px] w-max scale-[0.8] hover:scale-[1] transition-all'
                                 />
-                                <p data-id={categoryEle.id} className='capitalize font-medium text-xs border-t p-[.5rem] text-center'>{categoryEle.name}</p>
+                                <p data-id={categoryEle.id} className='capitalize font-medium text-xs border-t p-[.5rem] text-center w-full'>{categoryEle.name}</p>
                             </div>
                         ))
                     }

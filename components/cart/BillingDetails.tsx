@@ -40,6 +40,7 @@ export default function BillingDetails() {
                 </CardFooter>
             </Card>
             <Button
+                disabled={priceDetails.total === 0}
                 onClick={handleProceedToPayClick}
             >
                 Proceed to payment
