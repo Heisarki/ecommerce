@@ -10,7 +10,7 @@ export default function Item({
     item: tProduct,
 }) {
     return (
-        <Card className='flex flex-col p-[0.4rem] gap-[0.5rem] h-full justify-between' data-id={item.id}>
+        <Card className='flex flex-col p-[0.4rem] gap-[0.5rem] h-full justify-between' data-id={item.id} key={item.id}>
             <div className='flex flex-col gap-[0.5rem]'>
                 <div className='w-full overflow-hidden flex items-start justify-center scale-[0.8] hover:scale-[1] transition-all'>
                     <img

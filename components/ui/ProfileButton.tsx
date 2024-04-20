@@ -10,12 +10,18 @@ import { AddressIcon, LogoutIcon, ProfileIcon, SettingIcon } from '@/constants/i
 import { ModeToggle } from './ModeToggle';
 import { tLoginInCreateAccountContext } from '@/types';
 import { useLoginInCreateAccountContext } from '@/context/loginCreateAccount/LoginCreateAccount';
-import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/constants/common';
+import useNavigateTo from '@/hooks/useNavigateTo';
 
 export default function ProfileButton() {
     const { handleLogout, isLoggedIn, handleOpenLoginDialog }: tLoginInCreateAccountContext = useLoginInCreateAccountContext();
-    const router = useRouter();
+    const { navigate } = useNavigateTo()
+    async function handleNavToProfile() {
+        navigate(ROUTES.profile.route)
+    }
+    async function handleNavToAddress() {
+        navigate(ROUTES.address.route);
+    }
     return (
         <DropdownMenu>
             {
@@ -40,10 +46,10 @@ export default function ProfileButton() {
 
             }
             <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => router.push(ROUTES.profile.route)} className='flex gap-[0.5rem]'>
+                <DropdownMenuItem onClick={handleNavToProfile} className='flex gap-[0.5rem]'>
                     <ProfileIcon />Profile
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => router.push(ROUTES.address.route)} className='flex gap-[0.5rem]'>
+                <DropdownMenuItem onClick={handleNavToAddress} className='flex gap-[0.5rem]'>
                     <AddressIcon /> Address
                 </DropdownMenuItem>
                 {/* <DropdownMenuItem onClick={() => router.push()} className='flex gap-[0.5rem]'>

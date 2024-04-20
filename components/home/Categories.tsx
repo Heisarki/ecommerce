@@ -58,7 +58,7 @@ export default function Categories() {
                                     alt={categoryEle.id}
                                     className='rounded-lg object-contain h-[150px] w-max scale-[0.8] hover:scale-[1] transition-all'
                                 />
-                                <p data-id={categoryEle.id} className='capitalize font-medium text-xs border-t p-[.5rem] text-center w-full'>{categoryEle.name}</p>
+                                <p data-id={categoryEle.id} className='capitalize font-medium text-xs  p-[.5rem] text-center w-full border-t'>{categoryEle.name}</p>
                             </div>
                         ))
                     }

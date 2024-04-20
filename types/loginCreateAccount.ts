@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react"
+
 export type tLoginInCreateAccountContext = {
     isLoggedIn: boolean,
     openLoginDialog: boolean,
@@ -16,6 +18,8 @@ export type tLoginInCreateAccountContext = {
     handleLastNameChange: (e: any) => void,
     handleLogout: () => void,
     userDetails: tUserDetails,
+    navLoading: boolean,
+    setNavLoading: Dispatch<SetStateAction<boolean>>
 }
 
 export type tAuthInputData = {

@@ -31,6 +31,7 @@ export const LoginInCreateAccountContextProvider = ({
     const [loginOrCreateAccount, setLoginOrCreateAccount] = useState(LOGIN_CREATE_ACCOUNT.login)
     const [openLoginDialog, setOpenLoginDialog] = useState(false)
     const [authInputData, setAuthInputData] = useState(initialAuthInputData as tAuthInputData)
+    const [navLoading, setNavLoading] = useState(false)
     const value = {
         isLoggedIn,
         openLoginDialog,
@@ -49,6 +50,7 @@ export const LoginInCreateAccountContextProvider = ({
         handleLastNameChange,
         handleLogout,
         userDetails,
+        navLoading, setNavLoading,
     }
 
     async function checkIfUserLoggedIn() {
