@@ -20,14 +20,14 @@ export default function Input({
     inputRegister?: any
 }) {
     const [inputType, setInputType] = useState(type)
-    const [showPassword, setShowPassword] = useState(false)
-    function handleShowPassword() {
-        if (showPassword) {
+    const [hidePassword, setHidePassword] = useState(true)
+    function handleHidePassword() {
+        if (hidePassword) {
             setInputType("text")
-            setShowPassword(!showPassword)
+            setHidePassword(!hidePassword)
         } else {
             setInputType("password")
-            setShowPassword(!showPassword)
+            setHidePassword(!hidePassword)
         }
     }
     return (
@@ -40,7 +40,7 @@ export default function Input({
             }
             <input
                 name={name}
-                className={`${cn("border focus:border focus:outline-none px-[0.5rem] py-[0.5rem] rounded-md text-xs w-[100%]")} ${inputType === "search" ? "pl-[1.8rem]" : ""}`}
+                className={`${cn("border focus:border focus:outline-none px-[0.5rem] py-[0.5rem] rounded-md text-xs w-[100%] h-[2.5rem]")} ${inputType === "search" ? "pl-[1.8rem]" : ""}`}
                 type={inputType}
                 value={value}
                 onChange={onChange}
@@ -51,9 +51,9 @@ export default function Input({
                 type === "password" &&
                 <div
                     className='absolute top-[50%] right-[0.5rem] translate-y-[-50%] cursor-pointer'
-                    onClick={handleShowPassword}
+                    onClick={handleHidePassword}
                 >
-                    {showPassword ? <FaEye /> : <FaEyeSlash />}
+                    {hidePassword ? <FaEye /> : <FaEyeSlash />}
                 </div>
             }
         </div>

@@ -1,4 +1,4 @@
-const initialAddressInputData = {
+const initialAddressInputFormData = {
     id: "",
     name: "",
     phoneNumber: "",
@@ -21,6 +21,6 @@ const initialDisplayAddressFormData = {
 }
 
 export {
-    initialAddressInputData,
+    initialAddressInputFormData,
     initialDisplayAddressFormData,
 }

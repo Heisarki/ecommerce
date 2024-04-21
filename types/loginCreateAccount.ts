@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react"
+import { UseFormRegister } from "react-hook-form"
 
 export type tLoginInCreateAccountContext = {
     isLoggedIn: boolean,
@@ -11,7 +12,7 @@ export type tLoginInCreateAccountContext = {
     // authInputData: tAuthInputData,
     handleLogin: (e:any) => void,
     handleCreateAccount: (e: any) => void,
-    authInputData: any,
+    authInputData: UseFormRegister<tAuthInputData>,
     handleSubmit: any,
     errors: any,
     setValue: any,
@@ -23,8 +24,6 @@ export type tLoginInCreateAccountContext = {
     // handleLastNameChange: (e: any) => void,
     handleLogout: () => void,
     userDetails: tUserDetails,
-    navLoading: boolean,
-    setNavLoading: Dispatch<SetStateAction<boolean>>
 }
 
 export type tAuthInputData = {

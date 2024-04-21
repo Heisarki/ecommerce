@@ -1,5 +1,5 @@
 "use client";
-import { LOGIN_CREATE_ACCOUNT } from "@/constants/common";
+import { LOGIN_CREATE_ACCOUNT, ROUTES } from "@/constants/common";
 import { tLoginInCreateAccountContext, tUserDetails, tAuthInputData } from "@/types";
 import {
     createContext,
@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { useLocalStorage } from "@/hooks";
 import LoginCreateAccountDialog from "@/components/loginCreateAccount/LoginCreateAccountDialog";
 import { SubmitHandler, useForm } from "react-hook-form";
+import useNavigateTo from "@/hooks/useNavigateTo";
 
 const LoginInCreateAccountContext = createContext({} as tLoginInCreateAccountContext);
 
@@ -31,11 +32,17 @@ export const LoginInCreateAccountContextProvider = ({
     const [userDetails, setUserDetails] = useState(initialUserDetailsData as tUserDetails)
     const [loginOrCreateAccount, setLoginOrCreateAccount] = useState(LOGIN_CREATE_ACCOUNT.login)
     const [openLoginDialog, setOpenLoginDialog] = useState(false)
-    // const [authInputData, setAuthInputData] = useState(initialAuthInputData as tAuthInputData)
-    const { register: authInputData, handleSubmit, formState: { errors }, setValue, watch, reset } = useForm<tAuthInputData>({
+    const {
+        register: authInputData,
+        handleSubmit,
+        formState: { errors },
+        setValue,
+        watch,
+        reset
+    } = useForm<tAuthInputData>({
         defaultValues: initialAuthInputData
     })
-    const [navLoading, setNavLoading] = useState(false)
+    const { navigate } = useNavigateTo();
     const value = {
         isLoggedIn,
         openLoginDialog,
@@ -54,7 +61,6 @@ export const LoginInCreateAccountContextProvider = ({
 
         handleLogout,
         userDetails,
-        navLoading, setNavLoading,
     }
 
     async function checkIfUserLoggedIn() {
@@ -165,6 +171,7 @@ export const LoginInCreateAccountContextProvider = ({
             setIsLoggedIn(false)
             toast("Logout successfull!")
             setUserDetails(initialUserDetailsData)
+            navigate(ROUTES.home.route)
         } catch (err: any) {
             checkIfUserLoggedIn()
             console.log(err)

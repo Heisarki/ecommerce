@@ -3,6 +3,7 @@ import { MenuListContextProvider } from './menuListContext/menuListContext'
 import { CartContextProvider } from './cartContext/cartContext'
 import { LoginInCreateAccountContextProvider } from './loginCreateAccount/LoginCreateAccount'
 import { AddressContextProvider } from './addressContext/addressContext'
+import { GlobalContextProvider } from './globalContext/GlobalContext'
 
 
 export default function ContextProvider({
@@ -11,14 +12,16 @@ export default function ContextProvider({
     children: ReactNode
 }) {
     return (
-        <LoginInCreateAccountContextProvider>
-            <AddressContextProvider>
-                <CartContextProvider>
-                    <MenuListContextProvider>
-                        {children}
-                    </MenuListContextProvider>
-                </CartContextProvider>
-            </AddressContextProvider>
-        </LoginInCreateAccountContextProvider>
+        <GlobalContextProvider>
+            <LoginInCreateAccountContextProvider>
+                <AddressContextProvider>
+                    <CartContextProvider>
+                        <MenuListContextProvider>
+                            {children}
+                        </MenuListContextProvider>
+                    </CartContextProvider>
+                </AddressContextProvider>
+            </LoginInCreateAccountContextProvider>
+        </GlobalContextProvider>
     )
 }
