@@ -3,14 +3,15 @@ import React, { ReactNode, useEffect } from 'react'
 import HeaderNav from './HeaderNav'
 import FooterNav from './FooterNav'
 import { ModeToggle } from './ui/ModeToggle'
-import { tLoginInCreateAccountContext } from '@/types'
+import { tGlobalContext, tLoginInCreateAccountContext } from '@/types'
 import { useLoginInCreateAccountContext } from '@/context/loginCreateAccount/LoginCreateAccount'
 import Loading from './ui/Loading'
+import { useGlobalContext } from '@/context/globalContext/GlobalContext'
 
 export default function AppLayout({
     children
 }: { children: ReactNode }) {
-    const { navLoading }: tLoginInCreateAccountContext = useLoginInCreateAccountContext()
+    const { navLoading }: tGlobalContext = useGlobalContext()
     useEffect(() => {
         console.log("NAV", navLoading)
     }, [navLoading])
