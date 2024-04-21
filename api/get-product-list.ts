@@ -19,10 +19,12 @@ async function getAllProductListAPI() {
     try {
         // setIsLoading(true)
         const res = await axios.get(`${API_BASE_URL}/products`)
+        console.log("PRODUCTS LIST",res)
         if (!res.data)
             throw new Error("Something went wrong!")
         return res
     } catch (err) {
+        console.log("PRODUCTS LIST",err)
        return err
     } finally {
         // setIsLoading(false)

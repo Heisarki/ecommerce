@@ -1,4 +1,4 @@
-const authInputInitialData = {
+const initialAuthInputData = {
     emailOrPhoneNo: "",
     currentPassword: "",
     confirmPassword: "",
@@ -7,7 +7,7 @@ const authInputInitialData = {
     isLoggedInCreateAccountClick: false
 }
 
-const userDetailsInitialData = {
+const initialUserDetailsData = {
     id: "",
     email: "",
     firstName: "",
@@ -16,6 +16,6 @@ const userDetailsInitialData = {
 }
 
 export {
-    authInputInitialData,
-    userDetailsInitialData,
+    initialAuthInputData,
+    initialUserDetailsData,
 }

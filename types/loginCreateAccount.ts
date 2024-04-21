@@ -1,19 +1,30 @@
+import { Dispatch, SetStateAction } from "react"
+
 export type tLoginInCreateAccountContext = {
     isLoggedIn: boolean,
     openLoginDialog: boolean,
     handleOpenLoginDialog: () => void,
+    handleCloseLoginDialog: () => void,
     handleGotoCreateAccount: () => void,
     handleGotoLogin: () => void,
     loginOrCreateAccount: string,
-    authInputData: tAuthInputData,
+    // authInputData: tAuthInputData,
     handleLogin: (e:any) => void,
-    handleEmailPhoneNoChange:(e:any) => void,
-    handleCurrentPasswordChange: (e: any) => void,
     handleCreateAccount: (e: any) => void,
-    handleConfirmPasswordChange: (e: any) => void,
-    handleFirstNameChange: (e: any) => void,
-    handleLastNameChange: (e: any) => void,
-    handleLogout:() => void,
+    authInputData: any,
+    handleSubmit: any,
+    errors: any,
+    setValue: any,
+    watch: any,
+    // handleEmailPhoneNoChange:(e:any) => void,
+    // handleCurrentPasswordChange: (e: any) => void,
+    // handleConfirmPasswordChange: (e: any) => void,
+    // handleFirstNameChange: (e: any) => void,
+    // handleLastNameChange: (e: any) => void,
+    handleLogout: () => void,
+    userDetails: tUserDetails,
+    navLoading: boolean,
+    setNavLoading: Dispatch<SetStateAction<boolean>>
 }
 
 export type tAuthInputData = {

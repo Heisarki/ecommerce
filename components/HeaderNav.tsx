@@ -7,22 +7,21 @@ import Input from './ui/Input';
 import useAnimationTyping from '@/hooks/useAnimationTyping';
 import { tMenuListContext } from '@/types';
 import { useMenuListContext } from '@/context/menuListContext/menuListContext';
-import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation'
 import { LogoIcon } from '@/constants/icons';
-import LoginCreateAccountDialog from './loginCreateAccount/LoginCreateAccountDialog';
+import useNavigateTo from '@/hooks/useNavigateTo';
 
 export default function HeaderNav() {
     const { searchValue, handleOnChangeSearch }: tMenuListContext = useMenuListContext();
     const [placeholder] = useAnimationTyping("Search here...", searchValue)
-    const router = useRouter();
+    const { navigate } = useNavigateTo()
     const pathName = usePathname();
     return (
         <nav className='h-[--nav-height] flex items-center fixed top-0 left-0 right-0 px-[0.5rem] lg:px-[2rem] z-50 bg-secondary/95 w-screen border-b'>
             <div className='md:grid md:grid-cols-3 w-full flex items-center justify-between'>
                 <div
                     className='md:cursor-pointer cursor-default pl-[0.7rem]'
-                    onClick={() => router.push("/")}
+                    onClick={() => navigate("/")}
                 >
                     <LogoIcon size={"1.5rem"} />
                 </div>
@@ -43,7 +42,6 @@ export default function HeaderNav() {
                     </div>
                 </div>
             </div>
-            <LoginCreateAccountDialog />
         </nav>
     )
 }

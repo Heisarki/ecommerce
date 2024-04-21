@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 
-export default function ClickRipple() {
+export default function ClickRipple({ className }: { className?: any }) {
   const [xy, setXy] = React.useState({
     x: 0,
     y: 0,
@@ -9,7 +9,6 @@ export default function ClickRipple() {
   })
   function handleClick(e: any) {
     const { offsetX, offsetY } = e.nativeEvent;
-    console.log(e)
     setXy({
       x: offsetX,
       y: offsetY,

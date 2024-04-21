@@ -20,9 +20,9 @@ export default function CartItems() {
                                 <div key={itemEle.id} className={`${cn('border-b py-[0.5rem] flex gap-[1rem] flex-col')} ${(index === cartItems.length - 1 && "border-b-0")}`}>
                                     <div className='flex gap-[1rem]'>
                                         <div className='flex flex-col gap-[0.5rem] w-[5rem] md:w-[6rem] flex-shrink-0'>
-                                            <div className='size-[5rem] md:size-[6rem] rounded-md overflow-hidden'>
+                                            <div className='size-[5rem] md:size-[6rem] rounded-md overflow-hidden flex justify-center items-center'>
                                                 <img
-                                                    className='rounded-md contain h-full w-full'
+                                                    className='rounded-lg object-contain h-[5rem] w-full bg-white'
                                                     alt={""}
                                                     src={itemEle.image}
                                                 />

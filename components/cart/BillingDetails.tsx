@@ -7,7 +7,11 @@ import { useCartContext } from '@/context/cartContext/cartContext'
 import ClickRipple from '../ui/ClickRipple'
 
 export default function BillingDetails() {
-    const { priceDetails, cartItems }: tCartContext = useCartContext()
+    const {
+        priceDetails,
+        cartItems,
+        handleProceedToPayClick,
+    }: tCartContext = useCartContext()
     return (
         <div className='flex flex-col w-full gap-[1rem]'>
             <Card className='w-full'>
@@ -35,7 +39,10 @@ export default function BillingDetails() {
                     </div>
                 </CardFooter>
             </Card>
-            <Button>
+            <Button
+                disabled={priceDetails.total === 0}
+                onClick={handleProceedToPayClick}
+            >
                 Proceed to payment
             </Button>
         </div>

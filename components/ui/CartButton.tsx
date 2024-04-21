@@ -1,5 +1,6 @@
 "use client"
 import { useCartContext } from '@/context/cartContext/cartContext';
+import useNavigateTo from '@/hooks/useNavigateTo';
 import { tCartContext, tCartItem } from '@/types/cartContextType';
 import { useRouter } from 'next/navigation';
 import React from 'react'
@@ -8,8 +9,10 @@ import { GiShoppingCart } from "react-icons/gi";
 export default function CartButton() {
     const { cartItems }: tCartContext = useCartContext();
     const router = useRouter()
+    const { navigate } = useNavigateTo()
+
     function handleCartClick() {
-        router.push("/cart")
+        navigate("/cart")
     }
     return (
         <div className='relative' onClick={handleCartClick}>

@@ -10,20 +10,22 @@ export default function Item({
     item: tProduct,
 }) {
     return (
-        <Card className='flex flex-col p-[0.4rem] gap-[0.5rem] h-full justify-between' data-id={item.id}>
+        <Card className='flex flex-col p-[0.4rem] gap-[0.5rem] h-full justify-between' data-id={item.id} key={item.id}>
             <div className='flex flex-col gap-[0.5rem]'>
-                <div className='w-full overflow-hidden flex items-start justify-start'>
+                <div className='w-full overflow-hidden flex items-start justify-center scale-[0.8] hover:scale-[1] transition-all'>
                     <img
                         src={item.image}
                         alt={item.title}
-                        className='h-[10rem] w-full rounded-lg object-contain'
+                        className='h-[10rem] w-max  rounded-lg object-contain'
                     />
                 </div>
                 <div className='border-b ml-[-0.4rem] mr-[-0.4rem]'>
                 </div>
                 <div className='flex flex-col gap-[0.5rem]'>
-                    <h1 className='text-xs bg-primary text-primary-foreground rounded-md w-max px-[0.5rem] py-[0.2rem]'>
+                    <h1 className='text-xs bg-primary text-primary-foreground rounded-md w-max px-[0.5rem] py-[0.2rem]  relative overflow-hidden'>
                         ₹ {item.price.toFixed(2)}
+                        {/* <span className='h-[200%] w-[0.5rem] bg-destructive absolute rotate-[-20deg] top-[-0.5rem] right-[2rem] bottom-0 opacity-[0.5]'>
+                        </span> */}
                     </h1>
                     <h1 className='text-xs font-semibold'>
                         {item.title}

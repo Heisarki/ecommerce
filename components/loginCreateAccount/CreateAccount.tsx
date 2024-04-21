@@ -4,60 +4,60 @@ import { Button } from '../ui/Button'
 import { FacebookIcon, GoogleIcon } from '@/constants/icons'
 import { tLoginInCreateAccountContext } from '@/types';
 import { useLoginInCreateAccountContext } from '@/context/loginCreateAccount/LoginCreateAccount';
+import Required from '../ui/Required';
 
 export default function CreateAccount() {
-    const { authInputData, handleEmailPhoneNoChange, handleCurrentPasswordChange, handleCreateAccount, handleConfirmPasswordChange, handleFirstNameChange, handleLastNameChange }: tLoginInCreateAccountContext = useLoginInCreateAccountContext();
+    const { authInputData, handleCreateAccount, handleSubmit, errors, watch }: tLoginInCreateAccountContext = useLoginInCreateAccountContext();
     return (
         <>
-            <div className='w-full flex flex-col gap-[1rem] border md:p-[1rem] p-[0.5rem] rounded-md'>
+            <form onSubmit={handleSubmit(handleCreateAccount)} className='w-full flex flex-col gap-[1rem] border md:p-[1rem] p-[0.5rem] rounded-md'>
                 <div className='flex gap-[0.5rem]'>
                     <div className='flex flex-col gap-[0.3rem]'>
                         <label className='text-xs'>Firstname</label>
                         <Input
-                            onChange={handleFirstNameChange}
-                            value={authInputData.firstName}
+                            inputRegister={authInputData("firstName", { required: true })}
                             placeholder='John'
                         />
                     </div>
                     <div className='flex flex-col gap-[0.3rem]'>
                         <label className='text-xs'>Lastname</label>
                         <Input
-                            onChange={handleLastNameChange}
-                            value={authInputData.lastName}
+                            inputRegister={authInputData("lastName")}
                             placeholder='Doe'
                         />
                     </div>
                 </div>
+                {errors.firstName && <Required />}
                 <div className='flex flex-col gap-[0.3rem]'>
                     <label className='text-xs'>Email or Phone number</label>
                     <Input
-                        onChange={handleEmailPhoneNoChange}
-                        value={authInputData.emailOrPhoneNo}
+                        inputRegister={authInputData("emailOrPhoneNo", { required: true })}
                         placeholder='johndoe@email.com'
                     />
+                    {errors.emailOrPhoneNo && <Required />}
                 </div>
                 <div className='flex flex-col gap-[0.3rem]'>
                     <label className='text-xs'>Password</label>
                     <Input
-                        onChange={handleCurrentPasswordChange}
-                        value={authInputData.currentPassword}
+                        inputRegister={authInputData("currentPassword", { required: true })}
                         placeholder='password'
                         type='password'
                     />
+                    {errors.currentPassword && <Required />}
                 </div>
                 <div className='flex flex-col gap-[0.3rem]'>
                     <label className='text-xs'>Confirm Password</label>
                     <Input
-                        onChange={handleConfirmPasswordChange}
-                        value={authInputData.confirmPassword}
+                        inputRegister={authInputData("confirmPassword", { required: true })}
                         placeholder='password'
                         type='password'
                     />
+                    {errors.confirmPassword && <Required />}
                 </div>
-                <Button className='w-full' onClick={handleCreateAccount} disabled={authInputData.isLoggedInCreateAccountClick}>
-                    {authInputData.isLoggedInCreateAccountClick ? "Please wait..." : "Create account"}
+                <Button type='submit' className='w-full' disabled={watch("isLoggedInCreateAccountClick")}>
+                    {watch("isLoggedInCreateAccountClick") ? "Please wait..." : "Create account"}
                 </Button>
-            </div>
+            </form>
             <p className='w-full text-center text-sm'>Or</p>
             <div className='border md:p-[1rem] p-[0.5rem] rounded-md flex flex-col gap-[1rem]'>
                 <Button asChild>

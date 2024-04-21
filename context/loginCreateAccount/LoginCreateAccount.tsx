@@ -13,9 +13,11 @@ import {
 } from "react";
 import { auth } from '../../config'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth'
-import { userDetailsInitialData, authInputInitialData } from "./loginCreateAccountInitialData";
+import { initialUserDetailsData, initialAuthInputData } from "./initialLoginCreateAccountData";
 import { toast } from "sonner";
 import { useLocalStorage } from "@/hooks";
+import LoginCreateAccountDialog from "@/components/loginCreateAccount/LoginCreateAccountDialog";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 const LoginInCreateAccountContext = createContext({} as tLoginInCreateAccountContext);
 
@@ -26,27 +28,33 @@ export const LoginInCreateAccountContextProvider = ({
 }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     // useLocalStorage("_ecom_is_logged_in", false)
-    const [userDetails, setUserDetails] = useState(userDetailsInitialData as tUserDetails)
+    const [userDetails, setUserDetails] = useState(initialUserDetailsData as tUserDetails)
     const [loginOrCreateAccount, setLoginOrCreateAccount] = useState(LOGIN_CREATE_ACCOUNT.login)
     const [openLoginDialog, setOpenLoginDialog] = useState(false)
-    const [authInputData, setAuthInputData] = useState(authInputInitialData as tAuthInputData)
+    // const [authInputData, setAuthInputData] = useState(initialAuthInputData as tAuthInputData)
+    const { register: authInputData, handleSubmit, formState: { errors }, setValue, watch, reset } = useForm<tAuthInputData>({
+        defaultValues: initialAuthInputData
+    })
+    const [navLoading, setNavLoading] = useState(false)
     const value = {
         isLoggedIn,
         openLoginDialog,
         handleOpenLoginDialog,
+        handleCloseLoginDialog,
         handleGotoLogin,
         handleGotoCreateAccount,
         loginOrCreateAccount,
-        authInputData,
         handleLogin,
-        handleEmailPhoneNoChange,
-        handleCurrentPasswordChange,
         handleCreateAccount,
-        handleConfirmPasswordChange,
-        handleFirstNameChange,
-        handleLastNameChange,
+        errors,
+        authInputData,
+        handleSubmit,
+        setValue,
+        watch,
+
         handleLogout,
         userDetails,
+        navLoading, setNavLoading,
     }
 
     async function checkIfUserLoggedIn() {
@@ -83,6 +91,9 @@ export const LoginInCreateAccountContextProvider = ({
     function handleOpenLoginDialog() {
         setOpenLoginDialog(true)
     }
+    function handleCloseLoginDialog() {
+        setOpenLoginDialog(false)
+    }
 
     function handleGotoLogin() {
         setLoginOrCreateAccount(LOGIN_CREATE_ACCOUNT.login)
@@ -92,53 +103,15 @@ export const LoginInCreateAccountContextProvider = ({
     }
 
     /**
-     * Handling input change
-     */
-    function handleEmailPhoneNoChange(e: any) {
-        setAuthInputData((prev: tAuthInputData) => ({
-            ...prev,
-            emailOrPhoneNo: e.target.value.trim()
-        }))
-    }
-    function handleCurrentPasswordChange(e: any) {
-        setAuthInputData((prev: tAuthInputData) => ({
-            ...prev,
-            currentPassword: e.target.value.trim()
-        }))
-    }
-    function handleConfirmPasswordChange(e: any) {
-        setAuthInputData((prev: tAuthInputData) => ({
-            ...prev,
-            confirmPassword: e.target.value.trim()
-        }))
-    }
-    function handleFirstNameChange(e: any) {
-        setAuthInputData((prev: tAuthInputData) => ({
-            ...prev,
-            firstName: e.target.value.trim()
-        }))
-    }
-    function handleLastNameChange(e: any) {
-        setAuthInputData((prev: tAuthInputData) => ({
-            ...prev,
-            lastName: e.target.value.trim()
-        }))
-    }
-    /**
      * Login handler function
      */
-    async function handleLogin() {
-        console.log(authInputData)
-        if (authInputData.emailOrPhoneNo === "" || authInputData.currentPassword === "")
-            return;
-        setAuthInputData((prev: any) => ({
-            ...prev,
-            isLoggedInCreateAccountClick: true,
-        }))
+    async function handleLogin(data: any) {
+        console.log(data)
+        setValue('isLoggedInCreateAccountClick', true)
         try {
-            const response: any = await signInWithEmailAndPassword(auth, authInputData.emailOrPhoneNo, authInputData.currentPassword)
+            const response: any = await signInWithEmailAndPassword(auth, data.emailOrPhoneNo, data.currentPassword)
             console.log("CREATE ACC", response)
-            setAuthInputData(authInputInitialData)
+            // setAuthInputData(initialAuthInputData)
             setOpenLoginDialog(false)
             toast(`Login successfull with ${response?.user?.email}`)
             setUserDetails((prev: tUserDetails) => ({
@@ -146,30 +119,26 @@ export const LoginInCreateAccountContextProvider = ({
                 email: response?.user?.email,
                 id: response?.user?.uid,
             }))
+            reset();
         } catch (err: any) {
             console.log("CREATE ACC", err.message)
             toast(err.message)
-            setAuthInputData((prev: any) => ({
-                ...prev,
-                isLoggedInCreateAccountClick: false,
-            }))
         }
+        setValue('isLoggedInCreateAccountClick', false)
     }
     /**
     * Create account handler function
     */
-    async function handleCreateAccount() {
-        console.log(authInputData)
-        if (authInputData.emailOrPhoneNo === "" || authInputData.currentPassword === "" || authInputData.confirmPassword === "")
-            return;
-        setAuthInputData((prev: any) => ({
-            ...prev,
-            isLoggedInCreateAccountClick: true,
-        }))
+    async function handleCreateAccount(data: any) {
+        // console.log(authInputData)
+        setValue('isLoggedInCreateAccountClick', true)
+        if (data.currentPassword !== data.confirmPassword) {
+            setValue('isLoggedInCreateAccountClick', false)
+            toast("Password do not match")
+            return
+        }
         try {
-            const response = await createUserWithEmailAndPassword(auth, authInputData.emailOrPhoneNo, authInputData.currentPassword)
-            console.log("CREATE ACC", response)
-            setAuthInputData(authInputInitialData)
+            const response = await createUserWithEmailAndPassword(auth, data.emailOrPhoneNo, data.currentPassword)
             setOpenLoginDialog(false)
             toast("Account created successfully!")
             setUserDetails({
@@ -177,14 +146,13 @@ export const LoginInCreateAccountContextProvider = ({
                 id: response?.user?.uid,
                 email: response?.user?.email || "",
             })
+            reset();
         } catch (err: any) {
             console.log("CREATE ACC", err.message)
             toast(err.message)
-            setAuthInputData((prev: any) => ({
-                ...prev,
-                isLoggedInCreateAccountClick: false,
-            }))
         }
+        setValue('isLoggedInCreateAccountClick', false)
+
     }
     /**
      * Handleing logout
@@ -196,7 +164,7 @@ export const LoginInCreateAccountContextProvider = ({
             checkIfUserLoggedIn()
             setIsLoggedIn(false)
             toast("Logout successfull!")
-            setUserDetails(userDetailsInitialData)
+            setUserDetails(initialUserDetailsData)
         } catch (err: any) {
             checkIfUserLoggedIn()
             console.log(err)
@@ -207,6 +175,7 @@ export const LoginInCreateAccountContextProvider = ({
     return (
         <LoginInCreateAccountContext.Provider value={value}>
             {children}
+            <LoginCreateAccountDialog />
         </LoginInCreateAccountContext.Provider>
     );
 };
