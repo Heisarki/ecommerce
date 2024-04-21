@@ -13,7 +13,7 @@ export default function useNavigateTo() {
         router.push(route)
         setTimeout(() => {
             setNavLoading(false)
-        }, 1000)
+        }, 100)
     }
     return { navigate }
 }

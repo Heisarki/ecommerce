@@ -14,5 +14,9 @@ export type tProduct = {
 
 export type tProductList = {
   data: tProduct[],
-  isLoading: boolean
+  isLoading: boolean,
+  error: {
+    code: number | string,
+    message: string,
+  }
 }

@@ -24,8 +24,8 @@ export const MenuListContextProvider = ({
     const { cartItems, setCartItems }: tCartContext = useCartContext()
     const [categoryList, setCategoryList] = useState(CATEGORY as tCategory[])
     const [selectedCategory, setSelectedCategory] = useState({} as tCategory)
-    const [productList, setProductList] = useState({ isLoading: true, data: [] } as tProductList)
-    const [filteredProductList, setFilteredProductList] = useState({ isLoading: true, data: [] } as tProductList)
+    const [productList, setProductList] = useState({ isLoading: true, data: [], error: { code: 0, message: "" } } as tProductList)
+    const [filteredProductList, setFilteredProductList] = useState({ isLoading: true, data: [], error: { code: 0, message: "" } } as tProductList)
     const [searchValue, setSearchValue] = useState("")
     const value = {
         productList, setProductList,
@@ -46,8 +46,8 @@ export const MenuListContextProvider = ({
      * from this category
      */
     async function handleClickCategory(e: any) {
-        setProductList({ isLoading: true, data: [] })
-        setFilteredProductList({ isLoading: true, data: [] })
+        setProductList({ ...productList, isLoading: true, data: [] })
+        setFilteredProductList({ ...productList, isLoading: true, data: [] })
         const id = e.target.getAttribute("data-id")
         const selectedCategoryTemp = categoryList.filter((categoryEle: tCategory) => categoryEle.id === id)[0]
         setSelectedCategory(selectedCategoryTemp)
@@ -55,8 +55,11 @@ export const MenuListContextProvider = ({
         console.log("RES", res)
         if (res.status) {
             const processedItemList = getItemDataFromCart(res.data, cartItems)
-            setProductList({ isLoading: false, data: processedItemList })
-            setFilteredProductList({ isLoading: false, data: processedItemList })
+            setProductList({ ...productList, isLoading: false, data: processedItemList })
+            setFilteredProductList({ ...productList, isLoading: false, data: processedItemList })
+        } else {
+            setProductList({ error: { code: 502, message: "502 Bad gateway" }, isLoading: false, data: [] })
+            setFilteredProductList({ error: { code: 502, message: "502 Bad gateway" }, isLoading: false, data: [] })
         }
     }
 
@@ -78,6 +81,7 @@ export const MenuListContextProvider = ({
                 }
             ])
             const modifiedProductList = {
+                ...productList,
                 isLoading: false,
                 data: productList.data.map((itemEle: tProduct) => {
                     if (String(itemEle.id) === String(id))
@@ -96,6 +100,7 @@ export const MenuListContextProvider = ({
             return { ...itemEle }
         }))
         const modifiedProductList = {
+            ...productList,
             isLoading: false,
             data: productList.data.map((itemEle: tProduct) => {
                 if (String(itemEle.id) === String(id))
@@ -119,6 +124,7 @@ export const MenuListContextProvider = ({
                 }))
             }
             const modifiedProductList = {
+                ...productList,
                 isLoading: false,
                 data: productList.data.map((itemEle: tProduct) => {
                     if (String(itemEle.id) === String(id))
@@ -135,7 +141,7 @@ export const MenuListContextProvider = ({
      * Function to handle search product
      */
     function handleOnChangeSearch(e: any) {
-        setFilteredProductList({ isLoading: true, data: [] })
+        setFilteredProductList({ ...productList, isLoading: true, data: [] })
         const value = e.target.value
         setSearchValue(value)
         // setTimeout(() => {
@@ -146,7 +152,7 @@ export const MenuListContextProvider = ({
             const lowercaseDescription = item.description.toLowerCase();
             return lowercaseName.includes(lowercaseQuery) || lowercaseDescription.includes(lowercaseQuery);
         });
-        setFilteredProductList({ isLoading: false, data: filteredItems })
+        setFilteredProductList({ ...productList, isLoading: false, data: filteredItems })
         console.log("Now")
         // }, 1000)
     }
@@ -160,8 +166,11 @@ export const MenuListContextProvider = ({
             const res: any = await getAllProductListAPI()
             if (res.status) {
                 const processedItemList = getItemDataFromCart(res.data, cartItems)
-                setProductList({ isLoading: false, data: processedItemList })
-                setFilteredProductList({ isLoading: false, data: processedItemList })
+                setProductList({ ...productList, isLoading: false, data: processedItemList })
+                setFilteredProductList({ ...productList, isLoading: false, data: processedItemList })
+            } else {
+                setProductList({ error: { code: 502, message: "502 Bad gateway" }, isLoading: false, data: [] })
+                setFilteredProductList({ error: { code: 502, message: "502 Bad gateway" }, isLoading: false, data: [] })
             }
         }
         getAllProductList()

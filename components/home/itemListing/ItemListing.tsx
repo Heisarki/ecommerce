@@ -30,7 +30,9 @@ export default function ItemListing() {
                     </div>
                     : <p className='pt-[5rem] text-center'>
                         {
-                            filteredProductList.isLoading ? "Loading..." : "No item found!"
+                            filteredProductList.isLoading
+                                ? "Loading..."
+                                : (filteredProductList.error.message ? filteredProductList.error.message : "No item found!")
                         }
                     </p>
             }
