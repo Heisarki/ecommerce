@@ -8,12 +8,14 @@ export default function Input({
     placeholder,
     type = "text",
     name = placeholder,
+    inputRegister = {},
 }: {
     type?: string,
     value?: string,
     onChange?: (e: any) => void,
     placeholder?: string,
     name?: string,
+    inputRegister?: any
 }) {
     return (
         <div className='relative flex flex-grow'>
@@ -30,6 +32,7 @@ export default function Input({
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
+                {...inputRegister}
             />
         </div>
     )

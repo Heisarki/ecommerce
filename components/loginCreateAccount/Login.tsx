@@ -4,38 +4,46 @@ import { Button } from '../ui/Button'
 import { FacebookIcon, GoogleIcon } from '@/constants/icons'
 import { tLoginInCreateAccountContext } from '@/types'
 import { useLoginInCreateAccountContext } from '@/context/loginCreateAccount/LoginCreateAccount'
+import Required from '../ui/Required'
 
 export default function Login() {
     const {
         authInputData,
         handleLogin,
-        handleEmailPhoneNoChange,
-        handleCurrentPasswordChange
+        handleSubmit,
+        errors,
+        watch,
+        // handleEmailPhoneNoChange,
+        // handleCurrentPasswordChange
     }: tLoginInCreateAccountContext = useLoginInCreateAccountContext();
     return (
         <>
-            <div className='w-full flex flex-col gap-[1rem] border p-[1rem] rounded-md'>
+            <form onSubmit={handleSubmit(handleLogin)} className='w-full flex flex-col gap-[1rem] border p-[1rem] rounded-md'>
                 <div className='flex flex-col gap-[0.3rem]'>
                     <label className='text-xs'>Email or Phone number</label>
                     <Input
-                        value={authInputData.emailOrPhoneNo}
-                        onChange={handleEmailPhoneNoChange}
+                        inputRegister={authInputData("emailOrPhoneNo", { required: true })}
+                        // value={authInputData.emailOrPhoneNo}
+                        // onChange={handleEmailPhoneNoChange}
                         placeholder='johndoe@email.com'
                     />
+                    {errors.emailOrPhoneNo && <Required />}
                 </div>
                 <div className='flex flex-col gap-[0.3rem]'>
                     <label className='text-xs'>Password</label>
                     <Input
-                        value={authInputData.currentPassword}
-                        onChange={handleCurrentPasswordChange}
+                        inputRegister={authInputData("currentPassword", { required: true })}
+                        // value={authInputData.currentPassword}
+                        // onChange={handleCurrentPasswordChange}
                         placeholder='password'
                         type='password'
                     />
+                    {errors.currentPassword && <Required />}
                 </div>
-                <Button className='w-full' onClick={handleLogin} disabled={authInputData.isLoggedInCreateAccountClick}>
-                    {authInputData.isLoggedInCreateAccountClick ? "Please wait.." : "Log in"}
+                <Button className='w-full' disabled={watch("isLoggedInCreateAccountClick")} type='submit'>
+                    {watch("isLoggedInCreateAccountClick") ? "Please wait.." : "Log in"}
                 </Button>
-            </div>
+            </form>
             <p className='w-full text-center text-sm'>Or</p>
             <div className='border p-[1rem] rounded-md flex flex-col gap-[1rem]'>
                 <Button asChild>
