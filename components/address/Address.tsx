@@ -14,10 +14,11 @@ export default function Address() {
         addressList,
         handleAddNewAddressClick, handleEditAddressClick,
         displayAddressForm,
-        addressInputData,
-        handleAddressInputChange, handleAddressTypeInputChange,
+        addressInputFormData,
+        handleAddressTypeInputChange,
         handleCancelSaveNewAddressClick, handleSaveNewAddressClick,
         handleSaveEditedAddressClick, handleCancelEditedAddressClick,
+        addressInputFormErrorsData,
     } = useAddressContext();
     const { userDetails }: tLoginInCreateAccountContext = useLoginInCreateAccountContext();
     useEffect(() => {
@@ -37,11 +38,12 @@ export default function Address() {
                 displayAddressForm.new &&
                 <Card className='md:p-[2rem] p-[1rem]'>
                     <AddressInput
-                        formData={addressInputData}
-                        onInputChange={handleAddressInputChange}
+                        formData={addressInputFormData}
+                        // onInputChange={handleAddressInputChange}
                         onRadioChange={handleAddressTypeInputChange}
                         onSaveClick={handleSaveNewAddressClick}
                         onCancelClick={handleCancelSaveNewAddressClick}
+                        errors={addressInputFormErrorsData}
                     />
                 </Card>
             }
@@ -51,11 +53,12 @@ export default function Address() {
                         {
                             addressEle.editAddressFlag
                                 ? <AddressInput
-                                    formData={addressInputData}
-                                    onInputChange={handleAddressInputChange}
+                                    formData={addressInputFormData}
+                                    // onInputChange={handleAddressInputChange}
                                     onRadioChange={handleAddressTypeInputChange}
                                     onSaveClick={handleSaveEditedAddressClick}
                                     onCancelClick={handleCancelEditedAddressClick}
+                                    errors={addressInputFormErrorsData}
                                 />
                                 : <AddressItem address={addressEle} handleEditClick={() => handleEditAddressClick(addressEle)} />
                         }

@@ -1,19 +1,22 @@
 import { Dispatch } from "react";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
 
 export type tAddressContext = {
-    addressInputData: tAddressInputData;
-    handleAddressInputChange: (e: any) => void;
+    addressInputFormData: UseFormRegister<tAddressInputData>;
     handleAddressTypeInputChange: (e: any) => void;
-    handleSaveNewAddressClick: () => void;
+    handleSaveNewAddressClick: (data: any) => void;
     handleCancelSaveNewAddressClick: () => void;
     addressList: tAddressInputData[];
     setAddressList: any,
     displayAddressForm: tDisplayAddressForm;
     handleAddNewAddressClick: () => void;
-    handleEditAddressClick: (address: tAddressInputData) => void;
-    handleSaveEditedAddressClick: () => void;
+    handleEditAddressClick: (address: any) => void;
+    handleSaveEditedAddressClick: (data: any) => void;
     handleCancelEditedAddressClick: () => void;
     getAllAddressList: () => void;
+
+    handleSubmitAddressFormData: any,
+    addressInputFormErrorsData: FieldErrors<tAddressInputData>,
 }
 
 export type tAddressInputData = {

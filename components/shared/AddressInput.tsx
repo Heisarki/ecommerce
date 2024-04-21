@@ -5,23 +5,26 @@ import Input from '../ui/Input'
 import { RadioGroup, RadioGroupItem } from '../ui/RadioGroup'
 import { tAddressContext, tAddressInputData } from '@/types'
 import { useAddressContext } from '@/context/addressContext/addressContext'
+import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import Required from '../ui/Required'
 
 export default function AddressInput({
     formData,
-    onInputChange,
     onSaveClick,
     onCancelClick,
     onRadioChange,
+    errors,
 }: {
-    formData: tAddressInputData,
-    onInputChange: (e: any) => void,
-    onSaveClick: () => void,
+    formData: UseFormRegister<tAddressInputData>,
+    onSaveClick: (data: any) => void,
     onCancelClick: () => void,
     onRadioChange: (e: any) => void,
+    errors: FieldErrors<tAddressInputData>,
 }) {
+    const { handleSubmitAddressFormData }: tAddressContext = useAddressContext();
     return (
         <div className='w-full flex justify-center'>
-            <div className='max-w-[40rem] w-full flex flex-col gap-[1rem]'>
+            <form onSubmit={handleSubmitAddressFormData(onSaveClick)} className='max-w-[40rem] w-full flex flex-col gap-[1rem]'>
                 <div className='w-full '>
                     <div className='flex gap-[1rem] md:flex-row flex-col'>
                         <div className='w-full flex flex-col gap-[0.5rem]'>
@@ -29,18 +32,18 @@ export default function AddressInput({
                             <Input
                                 name="name"
                                 placeholder='John Doe'
-                                value={formData.name}
-                                onChange={onInputChange}
+                                inputRegister={formData("name", { required: true })}
                             />
+                            {errors.name && <Required />}
                         </div>
                         <div className='w-full flex flex-col gap-[0.5rem]'>
                             <label>10-digit mobile number</label>
                             <Input
                                 name="phoneNumber"
                                 placeholder='1234567890'
-                                value={formData.phoneNumber}
-                                onChange={onInputChange}
+                                inputRegister={formData("phoneNumber", { required: true })}
                             />
+                            {errors.phoneNumber && <Required />}
                         </div>
                     </div>
                 </div>
@@ -50,21 +53,21 @@ export default function AddressInput({
                         <Input
                             name="pinCode"
                             placeholder='123456'
-                            value={formData.pinCode}
-                            onChange={onInputChange}
+                            inputRegister={formData("pinCode", { required: true })}
                         />
+                        {errors.pinCode && <Required />}
                     </div>
                 </div>
                 <div className='w-full md:flex-row flex-col'>
                     <div className='w-full flex flex-col gap-[0.5rem]'>
                         <label>Address (Area and Street)</label>
                         <textarea
-                            name="areaAndStreet"
+                            // name="areaAndStreet"
                             className='rounded-md p-[0.5rem] text-xs'
                             placeholder='Salvadore Villa, Kuloor Ferry Road, Chilmbi, Urwa'
-                            value={formData.areaAndStreet}
-                            onChange={onInputChange}
+                            {...formData("areaAndStreet", { required: true })}
                         />
+                        {errors.areaAndStreet && <Required />}
                     </div>
                 </div>
                 <div className='w-full '>
@@ -74,18 +77,18 @@ export default function AddressInput({
                             <Input
                                 name="cityDistrictTown"
                                 placeholder='Shillong'
-                                value={formData.cityDistrictTown}
-                                onChange={onInputChange}
+                                inputRegister={formData("cityDistrictTown", { required: true })}
                             />
+                            {errors.cityDistrictTown && <Required />}
                         </div>
                         <div className='w-full flex flex-col gap-[0.5rem]'>
                             <label>State</label>
                             <Input
                                 name="state"
                                 placeholder='Meghalaya'
-                                value={formData.state}
-                                onChange={onInputChange}
+                                inputRegister={formData("state", { required: true })}
                             />
+                            {errors.state && <Required />}
                         </div>
                     </div>
                 </div>
@@ -95,16 +98,14 @@ export default function AddressInput({
                             <label>Landmark (Optional)</label>
                             <Input
                                 name="landmark"
-                                value={formData.landmark}
-                                onChange={onInputChange}
+                                inputRegister={formData("landmark")}
                             />
                         </div>
                         <div className='w-full flex flex-col gap-[0.5rem]'>
                             <label>Alternate Phone (Optional)</label>
                             <Input
                                 name="altPhoneNumber"
-                                value={formData.altPhoneNumber}
-                                onChange={onInputChange}
+                                inputRegister={formData("altPhoneNumber")}
                             />
                         </div>
                     </div>
@@ -114,9 +115,7 @@ export default function AddressInput({
                         <label>Address Type</label>
                         <RadioGroup
                             name='addressType'
-                            value={formData.addressType}
                             className='flex gap-[1rem]'
-                            onClick={onRadioChange}
                         >
                             <div className="flex items-center space-x-2">
                                 <RadioGroupItem value="home" id="r1" />
@@ -130,14 +129,14 @@ export default function AddressInput({
                     </div>
                 </div>
                 <div className='w-full flex gap-[1rem] justify-end'>
-                    <Button onClick={onSaveClick}>
+                    <Button type='submit'>
                         Save
                     </Button>
                     <Button variant={"secondary"} onClick={onCancelClick}>
                         Cancel
                     </Button>
                 </div>
-            </div>
+            </form>
         </div >
     )
 }

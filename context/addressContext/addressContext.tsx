@@ -7,11 +7,12 @@ import {
     ReactNode,
     useEffect,
 } from "react";
-import { initialAddressInputData, initialDisplayAddressFormData } from "./initialAddressContextData";
+import { initialAddressInputFormData, initialDisplayAddressFormData } from "./initialAddressContextData";
 import { getAddressList, saveAddress, updateAddress } from "@/api/addressApi";
 import { toast } from "sonner";
 import { v4 } from 'uuid'
 import { useLoginInCreateAccountContext } from "../loginCreateAccount/LoginCreateAccount";
+import { useForm } from "react-hook-form";
 
 const AddressContext = createContext({} as tAddressContext);
 
@@ -21,13 +22,22 @@ export const AddressContextProvider = ({
     children: ReactNode
 }) => {
     const { userDetails, isLoggedIn }: tLoginInCreateAccountContext = useLoginInCreateAccountContext();
-    const [addressInputData, setAddressInputData] = useState(initialAddressInputData as tAddressInputData)
+    // const [addressInputData, setAddressInputData] = useState(initialAddressInputData as tAddressInputData)
+    const {
+        register: addressInputFormData,
+        handleSubmit: handleSubmitAddressFormData,
+        formState: { errors: addressInputFormErrorsData },
+        setValue: setAddressInputData,
+        watch: watchAddressInputData,
+        reset: resetAddressInputData,
+    } = useForm<tAddressInputData>({
+        defaultValues: initialAddressInputFormData
+    })
     const [addressList, setAddressList] = useState([] as tAddressInputData[])
     const [displayAddressForm, setdisplayAddressForm] = useState(initialDisplayAddressFormData as tDisplayAddressForm)
 
     const value = {
-        addressInputData,
-        handleAddressInputChange,
+        addressInputFormData,
         handleAddressTypeInputChange,
         handleCancelSaveNewAddressClick,
         handleSaveNewAddressClick,
@@ -38,6 +48,9 @@ export const AddressContextProvider = ({
         handleSaveEditedAddressClick,
         handleCancelEditedAddressClick,
         getAllAddressList,
+
+        handleSubmitAddressFormData,
+        addressInputFormErrorsData,
     }
 
     /**
@@ -46,7 +59,7 @@ export const AddressContextProvider = ({
     useEffect(() => {
         if (!isLoggedIn) {
             setAddressList([])
-            setAddressInputData(initialAddressInputData)
+            resetAddressInputData();
             setdisplayAddressForm(initialDisplayAddressFormData)
         }
     }, [isLoggedIn])
@@ -73,35 +86,35 @@ export const AddressContextProvider = ({
     /**
      * Handle on input change of the Form
      */
-    function handleAddressInputChange(e: any) {
-        setAddressInputData({
-            ...addressInputData,
-            [e.target.name]: e.target.value
-        })
-    }
     function handleAddressTypeInputChange(e: any) {
-        setAddressInputData({
-            ...addressInputData,
-            addressType: e.target.value
-        })
+        // setAddressInputData({
+        //     ...addressInputData,
+        //     addressType: e.target.value
+        // })
     }
 
     /**
      * Handling Addding New address
      */
     function handleAddNewAddressClick() {
+        // close all edited address
+        setAddressList(addressList.map((addressEle: tAddressInputData) => {
+            return { ...addressEle, editAddressFlag: false }
+        }))
+        // reset input form
+        resetAddressInputData();
         setdisplayAddressForm({
             ...displayAddressForm,
             new: true,
         })
     }
-    async function handleSaveNewAddressClick() {
+    async function handleSaveNewAddressClick(data: tAddressInputData) {
         const addressId = v4();
         const timestamp = Date.now()
         console.log(addressId)
         const address = {
             [addressId]: {
-                ...addressInputData,
+                ...data,
                 id: addressId,
                 createdAt: timestamp,
                 updatedAt: timestamp,
@@ -115,7 +128,7 @@ export const AddressContextProvider = ({
         const tempAddressList: any = [
             ...addressList,
             {
-                ...addressInputData,
+                ...data,
                 id: addressId,
                 createdAt: timestamp,
                 updatedAt: timestamp,
@@ -123,7 +136,7 @@ export const AddressContextProvider = ({
 
         ]
         setAddressList(tempAddressList.slice().sort((a: any, b: any) => b.createdAt - a.createdAt))
-        setAddressInputData(initialAddressInputData)
+        resetAddressInputData();
         toast("Address saved successfully!")
         setdisplayAddressForm(initialDisplayAddressFormData)
     }
@@ -135,19 +148,27 @@ export const AddressContextProvider = ({
     /**
      * Handling Edit Address
      */
-    function handleEditAddressClick(address: tAddressInputData) {
-        console.log(address)
-        setAddressInputData(address)
+    function handleEditAddressClick(address: any) {
+        // close new address form
+        setdisplayAddressForm({
+            ...displayAddressForm,
+            new: false,
+        })
+        // set the current address data for editing
+        Object.keys(address).forEach((key: any) => {
+            setAddressInputData(key, address[key]);
+        });
+        // Change the edited state of the selected address to be edited to open the edit address form
         setAddressList(addressList.map((addressEle: tAddressInputData) => {
             if (addressEle.id === address.id)
                 return { ...addressEle, editAddressFlag: true }
             return { ...addressEle }
         }))
     }
-    async function handleSaveEditedAddressClick() {
+    async function handleSaveEditedAddressClick(data: tAddressInputData) {
         const timestamp = Date.now()
         const addresssTobeUpdated = {
-            ...addressInputData,
+            ...data,
             updatedAt: timestamp,
         }
         const response = updateAddress(addresssTobeUpdated.id, userDetails.id, addresssTobeUpdated)
@@ -162,7 +183,7 @@ export const AddressContextProvider = ({
             return { ...addressEle, editAddressFlag: false }
         })
         setAddressList(tempAddressList)
-        setAddressInputData(initialAddressInputData)
+        resetAddressInputData();
     }
     function handleCancelEditedAddressClick() {
         setAddressList(addressList.map((addressEle: tAddressInputData) => (

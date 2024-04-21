@@ -40,7 +40,7 @@ export default function Input({
             }
             <input
                 name={name}
-                className={`${cn("border focus:border focus:outline-none px-[0.5rem] py-[0.5rem] rounded-md text-xs w-[100%]")} ${inputType === "search" ? "pl-[1.8rem]" : ""}`}
+                className={`${cn("border focus:border focus:outline-none px-[0.5rem] py-[0.5rem] rounded-md text-xs w-[100%] h-[2.5rem]")} ${inputType === "search" ? "pl-[1.8rem]" : ""}`}
                 type={inputType}
                 value={value}
                 onChange={onChange}
