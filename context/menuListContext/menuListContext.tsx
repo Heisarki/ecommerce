@@ -11,7 +11,7 @@ import {
     useEffect,
 } from "react";
 import { useCartContext } from "../cartContext/cartContext";
-import { getItemDataFromCart } from "@/utils";
+import { OnAddingAnimationEffect, getItemDataFromCart } from "@/utils";
 import { toast } from "sonner"
 
 const MenuListContext = createContext({} as tMenuListContext);
@@ -95,18 +95,7 @@ export const MenuListContextProvider = ({
             setFilteredProductList(modifiedProductList)
         }
         // animation effect
-        setOnAddingAnimationEffect({
-            style: {
-                transform: "scale(0.9)",
-            },
-            itemId: id
-        })
-        setTimeout(() => {
-            setOnAddingAnimationEffect({
-                style: {},
-                itemId: id
-            })
-        }, 100)
+        OnAddingAnimationEffect(id, setOnAddingAnimationEffect);
     }
     function handleIncrement(id: string | number) {
         setCartItems(cartItems.map((itemEle: tCartItem) => {
@@ -126,18 +115,7 @@ export const MenuListContextProvider = ({
         setProductList(modifiedProductList)
         setFilteredProductList(modifiedProductList)
         // animation effect
-        setOnAddingAnimationEffect({
-            style: {
-                transform: "scale(0.9)",
-            },
-            itemId: id
-        })
-        setTimeout(() => {
-            setOnAddingAnimationEffect({
-                style: {},
-                itemId: id
-            })
-        }, 100)
+        OnAddingAnimationEffect(id, setOnAddingAnimationEffect);
     }
     function handleDecrement(id: string | number) {
         const itemToAddToCart: tCartItem | any = productList.data.find((itemEle: tProduct) => String(itemEle.id) === String(id))
@@ -164,18 +142,7 @@ export const MenuListContextProvider = ({
             setFilteredProductList(modifiedProductList)
         }
         // animation effect
-        setOnAddingAnimationEffect({
-            style: {
-                transform: "scale(0.9)",
-            },
-            itemId: id
-        })
-        setTimeout(() => {
-            setOnAddingAnimationEffect({
-                style: {},
-                itemId: id
-            })
-        }, 100)
+        OnAddingAnimationEffect(id, setOnAddingAnimationEffect);
     }
 
     /**
