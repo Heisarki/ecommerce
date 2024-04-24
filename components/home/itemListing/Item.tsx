@@ -6,13 +6,18 @@ import AddToCartButton from './AddToCartButton'
 
 export default function Item({
     item,
+    onAddingItemEffect,
 }: {
     item: tProduct,
+    onAddingItemEffect: any,
 }) {
     return (
-        <Card className='flex flex-col p-[0.4rem] gap-[0.5rem] h-full justify-between' data-id={item.id} key={item.id}>
+        <Card className='flex flex-col p-[0.4rem] gap-[0.5rem] h-full justify-between' data-id={item.id}>
             <div className='flex flex-col gap-[0.5rem]'>
-                <div className='w-full overflow-hidden flex items-start justify-center scale-[0.8] hover:scale-[1] transition-all'>
+                <div
+                    style={onAddingItemEffect.itemId === item.id ? onAddingItemEffect.style : {}}
+                    className='w-full overflow-hidden flex items-start justify-center scale-[0.8] hover:scale-[1] transition-[transform]'
+                >
                     <img
                         src={item.image}
                         alt={item.title}

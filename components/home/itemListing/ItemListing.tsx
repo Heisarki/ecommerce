@@ -5,7 +5,7 @@ import { tMenuListContext } from '@/types'
 import { useMenuListContext } from '@/context/menuListContext/menuListContext'
 
 export default function ItemListing() {
-    const { filteredProductList, selectedCategory }: tMenuListContext = useMenuListContext()
+    const { filteredProductList, selectedCategory, onAddingItemEffect }: tMenuListContext = useMenuListContext()
     return (
         <div className='flex flex-col gap-[0.5rem]'>
             <h1 className='text-xl font-medium capitalize'>
@@ -22,6 +22,7 @@ export default function ItemListing() {
                             filteredProductList.data.map((itemEle: any, index: number) => (
                                 <div key={itemEle.id || index}>
                                     <Item
+                                        onAddingItemEffect={onAddingItemEffect}
                                         item={itemEle}
                                     />
                                 </div>
