@@ -1,7 +1,7 @@
 "use client";
 import { getAllProductListAPI, getCategoryProductListAPI } from "@/api/get-product-list";
 import { CATEGORY } from "@/constants/category";
-import { tCategory, tMenuListContext, tProduct, tProductList } from "@/types";
+import { tCategory, tMenuListContext, tOnAddingItemEffect, tProduct, tProductList } from "@/types";
 import { tCartContext, tCartItem } from "@/types/cartContextType";
 import {
     createContext,
@@ -11,7 +11,7 @@ import {
     useEffect,
 } from "react";
 import { useCartContext } from "../cartContext/cartContext";
-import { getItemDataFromCart } from "@/utils";
+import { OnAddingAnimationEffect, getItemDataFromCart } from "@/utils";
 import { toast } from "sonner"
 
 const MenuListContext = createContext({} as tMenuListContext);
@@ -27,6 +27,7 @@ export const MenuListContextProvider = ({
     const [productList, setProductList] = useState({ isLoading: true, data: [], error: { code: 0, message: "" } } as tProductList)
     const [filteredProductList, setFilteredProductList] = useState({ isLoading: true, data: [], error: { code: 0, message: "" } } as tProductList)
     const [searchValue, setSearchValue] = useState("")
+    const [onAddingItemEffect, setOnAddingAnimationEffect] = useState({} as tOnAddingItemEffect)
     const value = {
         productList, setProductList,
         filteredProductList, setFilteredProductList,
@@ -38,6 +39,7 @@ export const MenuListContextProvider = ({
         handleDecrement,
         searchValue,
         handleOnChangeSearch,
+        onAddingItemEffect,
     }
 
     /**
@@ -92,6 +94,8 @@ export const MenuListContextProvider = ({
             setProductList(modifiedProductList)
             setFilteredProductList(modifiedProductList)
         }
+        // animation effect
+        OnAddingAnimationEffect(id, setOnAddingAnimationEffect);
     }
     function handleIncrement(id: string | number) {
         setCartItems(cartItems.map((itemEle: tCartItem) => {
@@ -110,6 +114,8 @@ export const MenuListContextProvider = ({
         }
         setProductList(modifiedProductList)
         setFilteredProductList(modifiedProductList)
+        // animation effect
+        OnAddingAnimationEffect(id, setOnAddingAnimationEffect);
     }
     function handleDecrement(id: string | number) {
         const itemToAddToCart: tCartItem | any = productList.data.find((itemEle: tProduct) => String(itemEle.id) === String(id))
@@ -135,6 +141,8 @@ export const MenuListContextProvider = ({
             setProductList(modifiedProductList)
             setFilteredProductList(modifiedProductList)
         }
+        // animation effect
+        OnAddingAnimationEffect(id, setOnAddingAnimationEffect);
     }
 
     /**

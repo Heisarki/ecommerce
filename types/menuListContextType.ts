@@ -15,11 +15,17 @@ export type tMenuListContext = {
     handleIncrement: (id: string | number) => void,
     handleDecrement: (id: string | number) => void,
     searchValue: string,
-    handleOnChangeSearch:(e: any) => void,
+    handleOnChangeSearch: (e: any) => void,
+    onAddingItemEffect: tOnAddingItemEffect
 }
 
 export type tCategory = {
     id: string | number,
     image: string,
     name: string,
+}
+
+export type tOnAddingItemEffect = {
+    itemId: string | number,
+    style: any
 }
