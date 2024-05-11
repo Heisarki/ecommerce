@@ -8,11 +8,12 @@ import {
     useEffect,
 } from "react";
 import { initialAddressInputFormData, initialDisplayAddressFormData } from "./initialAddressContextData";
-import { getAddressList, saveAddress, updateAddress } from "@/api/addressApi";
 import { toast } from "sonner";
 import { v4 } from 'uuid'
 import { useLoginInCreateAccountContext } from "../loginCreateAccount/LoginCreateAccount";
 import { useForm } from "react-hook-form";
+import { getUserData, saveData, updateData } from "@/api/crud";
+import { COLLECTION_NAME } from "@/constants/common";
 
 const AddressContext = createContext({} as tAddressContext);
 
@@ -77,7 +78,7 @@ export const AddressContextProvider = ({
      */
     async function getAllAddressList() {
         setAddressList([])
-        const response = await getAddressList(userDetails.id)
+        const response = await getUserData(userDetails.id, COLLECTION_NAME.ADDRESS)
         console.log(response)
         const sortedAddress = response.slice().sort((a, b) => b.createdAt - a.createdAt)
         setAddressList(sortedAddress)
@@ -120,7 +121,7 @@ export const AddressContextProvider = ({
                 updatedAt: timestamp,
             }
         }
-        const response = await saveAddress(userDetails.id, address);
+        const response = await saveData(userDetails.id, COLLECTION_NAME.ADDRESS, address);
         if (!response) {
             toast("Something went wrong!")
             return
@@ -171,7 +172,7 @@ export const AddressContextProvider = ({
             ...data,
             updatedAt: timestamp,
         }
-        const response = updateAddress(addresssTobeUpdated.id, userDetails.id, addresssTobeUpdated)
+        const response = updateData(addresssTobeUpdated.id, userDetails.id, COLLECTION_NAME.ADDRESS, addresssTobeUpdated)
         if (!response) {
             toast("Something went wrong!")
             return
