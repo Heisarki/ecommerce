@@ -63,20 +63,17 @@ async function getUserData(userId: string, collectionName: string) {
 }
 
 async function updateData(
-  dataId: any,
   userId: any,
   collectionName: string,
-  updatedAddressData: any
+  dataTobeUpdate: any
 ) {
   const addressDocRef = doc(db, collectionName, userId); // Reference to the user's address document
 
   try {
     // Update the document with the new data
-    await updateDoc(addressDocRef, {
-      [dataId]: updatedAddressData, // Update only the specific address within the document
-    });
+    await updateDoc(addressDocRef, dataTobeUpdate);
     console.log("Address updated successfully!");
-    return updatedAddressData;
+    return dataTobeUpdate;
   } catch (error) {
     console.error("Error updating address:", error);
     return null;

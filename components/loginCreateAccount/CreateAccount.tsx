@@ -3,8 +3,8 @@ import Input from '../ui/Input'
 import { Button } from '../ui/Button'
 import { FacebookIcon, GoogleIcon } from '@/constants/icons'
 import { tLoginInCreateAccountContext } from '@/types';
-import { useLoginInCreateAccountContext } from '@/context/loginCreateAccount/LoginCreateAccount';
 import Required from '../ui/Required';
+import { useLoginInCreateAccountContext } from '@/context/loginCreateAccountContext/LoginCreateAccountContext';
 
 export default function CreateAccount() {
     const { authInputData, handleCreateAccount, handleSubmit, errors, watch }: tLoginInCreateAccountContext = useLoginInCreateAccountContext();

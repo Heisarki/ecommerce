@@ -5,6 +5,7 @@ import { CiSearch } from "react-icons/ci";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Input({
+    readOnly = false,
     value,
     onChange,
     placeholder,
@@ -12,6 +13,7 @@ export default function Input({
     name = placeholder,
     inputRegister = {},
 }: {
+    readOnly?: boolean,
     type?: string,
     value?: string,
     onChange?: (e: any) => void,
@@ -39,6 +41,7 @@ export default function Input({
                 </div>
             }
             <input
+                readOnly={readOnly}
                 name={name}
                 className={`${cn("border focus:border focus:outline-none px-[0.5rem] py-[0.5rem] rounded-md text-xs w-[100%] h-[2.5rem]")} ${inputType === "search" ? "pl-[1.8rem]" : ""}`}
                 type={inputType}

@@ -12,7 +12,7 @@ import ConfirmationDialog from "@/components/cart/ConfirmationDialog";
 import { initialPriceDetails } from "./initialCartContextData";
 import { toast } from "sonner";
 import { useAddressContext } from "../addressContext/addressContext";
-import { useLoginInCreateAccountContext } from "../loginCreateAccount/LoginCreateAccount";
+import { useLoginInCreateAccountContext } from "../loginCreateAccountContext/LoginCreateAccountContext";
 
 const CartContext = createContext({} as tCartContext);
 

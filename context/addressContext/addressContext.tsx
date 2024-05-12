@@ -10,7 +10,7 @@ import {
 import { initialAddressInputFormData, initialDisplayAddressFormData } from "./initialAddressContextData";
 import { toast } from "sonner";
 import { v4 } from 'uuid'
-import { useLoginInCreateAccountContext } from "../loginCreateAccount/LoginCreateAccount";
+import { useLoginInCreateAccountContext } from "../loginCreateAccountContext/LoginCreateAccountContext";
 import { useForm } from "react-hook-form";
 import { getUserData, saveData, updateData } from "@/api/crud";
 import { COLLECTION_NAME } from "@/constants/common";
@@ -172,15 +172,21 @@ export const AddressContextProvider = ({
             ...data,
             updatedAt: timestamp,
         }
-        const response = updateData(addresssTobeUpdated.id, userDetails.id, COLLECTION_NAME.ADDRESS, addresssTobeUpdated)
+        const response = updateData(
+            userDetails.id,
+            COLLECTION_NAME.ADDRESS,
+            {
+                [data.id]: addresssTobeUpdated
+            }
+        )
         if (!response) {
             toast("Something went wrong!")
             return
         }
         toast("Address updated successfully!")
         const tempAddressList: any = addressList.map((addressEle: tAddressInputData) => {
-            if (addressEle.id === addresssTobeUpdated.id)
-                return { ...addresssTobeUpdated, editAddressFlag: false }
+            if (addressEle.id === data.id)
+                return { ...data, editAddressFlag: false }
             return { ...addressEle, editAddressFlag: false }
         })
         setAddressList(tempAddressList)

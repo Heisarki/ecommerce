@@ -1,6 +1,5 @@
 import React from 'react'
 import { tLoginInCreateAccountContext } from '@/types'
-import { useLoginInCreateAccountContext } from '@/context/loginCreateAccount/LoginCreateAccount'
 import CreateAccount from './CreateAccount';
 import Login from './Login';
 import { LOGIN_CREATE_ACCOUNT } from '@/constants/common';
@@ -9,6 +8,7 @@ import {
   Dialog,
   DialogContent,
 } from '../ui/Dialog';
+import { useLoginInCreateAccountContext } from '@/context/loginCreateAccountContext/LoginCreateAccountContext';
 
 export default function LoginCreateAccountDialog() {
   const { openLoginDialog, loginOrCreateAccount, handleGotoCreateAccount, handleGotoLogin, handleCloseLoginDialog }: tLoginInCreateAccountContext = useLoginInCreateAccountContext();
