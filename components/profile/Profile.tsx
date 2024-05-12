@@ -18,7 +18,7 @@ export default function Profile() {
                             {/* <img src='' alt='' /> */}
                             {
                                 watchProfileUpdate("photoURL") !== ""
-                                    ? <img src={watchProfileUpdate("photoURL")} alt='' />
+                                    ? <img src={watchProfileUpdate("photoURL")} alt='' className='object-cover' />
                                     : <ProfileIcon size={"100%"} />
                             }
                         </div>
