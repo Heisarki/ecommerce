@@ -12,6 +12,8 @@ export default function Input({
     type = "text",
     name = placeholder,
     inputRegister = {},
+    className,
+    ref,
 }: {
     readOnly?: boolean,
     type?: string,
@@ -19,7 +21,9 @@ export default function Input({
     onChange?: (e: any) => void,
     placeholder?: string,
     name?: string,
-    inputRegister?: any
+    inputRegister?: any,
+    className?: any,
+    ref?: any,
 }) {
     const [inputType, setInputType] = useState(type)
     const [hidePassword, setHidePassword] = useState(true)
@@ -41,9 +45,14 @@ export default function Input({
                 </div>
             }
             <input
+                ref={ref}
                 readOnly={readOnly}
                 name={name}
-                className={`${cn("border focus:border focus:outline-none px-[0.5rem] py-[0.5rem] rounded-md text-xs w-[100%] h-[2.5rem]")} ${inputType === "search" ? "pl-[1.8rem]" : ""}`}
+                className={`${cn("border focus:border focus:outline-none px-[0.5rem] py-[0.5rem] rounded-md text-xs w-[100%] h-[2.5rem]",
+                    className,
+                    inputType === "search" ? "pl-[1.8rem]" : "",
+                    readOnly && "bg-transparent",
+                )}`}
                 type={inputType}
                 value={value}
                 onChange={onChange}

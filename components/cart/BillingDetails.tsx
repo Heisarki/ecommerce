@@ -24,7 +24,7 @@ export default function BillingDetails() {
                         <h1>₹{priceDetails.subTotal.toFixed(2)}</h1>
                     </div>
                     <div className='flex items-center justify-between'>
-                        <h1>Delivery Charges {`(${cartItems.length}`} × {`40)`}</h1>
+                        <h1>Delivery Charges {`(40)`}</h1>
                         <h1>₹{priceDetails.deliveryCharges.toFixed(2)}</h1>
                     </div>
                     <div className='flex items-center justify-between'>

@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useRef } from 'react'
 import { Button } from '../ui/Button'
 import { FemaleIcon, MaleIcon, ProfileIcon } from '@/constants'
 import Input from '../ui/Input'
@@ -14,19 +14,19 @@ export default function Profile() {
             <div className='w-full flex justify-center'>
                 <div className='max-w-[40rem] w-full flex flex-col gap-[1rem] md:px-0 px-[1rem] md:pb-[0rem] pb-[3rem]'>
                     <div className='flex items-center gap-[2rem] w-full'>
-                        <div className='size-[5rem] rounded-full border overflow-hidden'>
+                        <div className='size-[5rem] rounded-full border overflow-hidden flex flex-shrink-0'>
                             {/* <img src='' alt='' /> */}
                             {
                                 watchProfileUpdate("photoURL") !== ""
-                                    ? <img src={watchProfileUpdate("photoURL")} alt='' className='object-cover' />
+                                    ? <img src={watchProfileUpdate("photoURL")} alt='' className='object-cover size-[5rem]' />
                                     : <ProfileIcon size={"100%"} />
                             }
                         </div>
                         {
                             editProfileFlag &&
                             <Input
+                                className={'w-max'}
                                 type='file'
-                                // variant={"outline"}
                                 onChange={handleUploadProfilePhoto}
                             />
                         }

@@ -96,7 +96,7 @@ export const LoginInCreateAccountContextProvider = ({
 
     function handleUploadProfilePhoto(e: any) {
         const file = e.target.files[0];
-        const reader = new FileReader();
+        const reader: any = new FileReader();
 
         reader.onloadend = () => {
             // Set the image preview to the data URL of the selected image

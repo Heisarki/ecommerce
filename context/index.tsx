@@ -4,6 +4,7 @@ import { CartContextProvider } from './cartContext/cartContext'
 import { LoginInCreateAccountContextProvider } from './loginCreateAccountContext/LoginCreateAccountContext'
 import { AddressContextProvider } from './addressContext/addressContext'
 import { GlobalContextProvider } from './globalContext/GlobalContext'
+import { OrderContextProvider } from './orderContext/orderContext'
 
 
 export default function ContextProvider({
@@ -17,7 +18,9 @@ export default function ContextProvider({
                 <AddressContextProvider>
                     <CartContextProvider>
                         <MenuListContextProvider>
-                            {children}
+                            <OrderContextProvider>
+                                {children}
+                            </OrderContextProvider>
                         </MenuListContextProvider>
                     </CartContextProvider>
                 </AddressContextProvider>

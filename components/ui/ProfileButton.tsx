@@ -34,7 +34,7 @@ export default function ProfileButton() {
                             {
                                 userDetails?.photoURL
                                     ? <div className='w-[1.5rem] h-[1.5rem] overflow-hidden rounded-full mr-[0.2rem] border'>
-                                        <img src={userDetails?.photoURL} alt='' className='object-cover' />
+                                        <img src={userDetails?.photoURL} alt='' className='object-cover w-[1.5rem] h-[1.5rem]' />
                                     </div>
                                     : <ProfileIcon />
                             }
