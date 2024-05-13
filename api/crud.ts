@@ -8,8 +8,8 @@ import {
   getDocs,
 } from "firebase/firestore";
 
-async function saveAddress(userId: string, data: any) {
-  const userDocRef = doc(db, "address", userId);
+async function saveData(userId: string, collectionName: string, data: any) {
+  const userDocRef = doc(db, collectionName, userId);
   try {
     // Check if the user document already exists
     const userDocSnap = await getDoc(userDocRef);
@@ -22,7 +22,7 @@ async function saveAddress(userId: string, data: any) {
       // If the user document doesn't exist, create a new document
       await setDoc(userDocRef, userData);
     }
-    console.log("Addresses saved successfully!");
+    console.log("Data saved successfully!");
     return data;
   } catch (error) {
     console.error("Error saving addresses:", error);
@@ -30,8 +30,8 @@ async function saveAddress(userId: string, data: any) {
   }
 }
 
-async function getAddressList(userId: string) {
-  const userDocRef = doc(db, "address", userId); // Reference to the user's document in the "address" collection
+async function getUserData(userId: string, collectionName: string) {
+  const userDocRef = doc(db, collectionName, userId); // Reference to the user's document in the "address" collection
 
   //   const querySnapshot = await getDocs(collection(db, "address"));
   //   querySnapshot.forEach((doc) => {
@@ -54,7 +54,7 @@ async function getAddressList(userId: string) {
     // Extract the addresses from the user document and convert them into an array
     const addresses = Object.values(userData);
 
-    console.log("Addresses retrieved successfully:", addresses);
+    console.log("Data retrieved successfully:", addresses);
     return addresses;
   } catch (error) {
     console.error("Error retrieving addresses:", error);
@@ -62,24 +62,22 @@ async function getAddressList(userId: string) {
   }
 }
 
-async function updateAddress(
-  addressId: any,
+async function updateData(
   userId: any,
-  updatedAddressData: any
+  collectionName: string,
+  dataTobeUpdate: any
 ) {
-  const addressDocRef = doc(db, "address", userId); // Reference to the user's address document
+  const addressDocRef = doc(db, collectionName, userId); // Reference to the user's address document
 
   try {
     // Update the document with the new data
-    await updateDoc(addressDocRef, {
-      [addressId]: updatedAddressData, // Update only the specific address within the document
-    });
+    await updateDoc(addressDocRef, dataTobeUpdate);
     console.log("Address updated successfully!");
-    return updatedAddressData;
+    return dataTobeUpdate;
   } catch (error) {
     console.error("Error updating address:", error);
     return null;
   }
 }
 
-export { saveAddress, getAddressList, updateAddress };
+export { saveData, getUserData, updateData };

@@ -4,7 +4,6 @@ import HeaderNav from './HeaderNav'
 import FooterNav from './FooterNav'
 import { ModeToggle } from './ui/ModeToggle'
 import { tGlobalContext, tLoginInCreateAccountContext } from '@/types'
-import { useLoginInCreateAccountContext } from '@/context/loginCreateAccount/LoginCreateAccount'
 import Loading from './ui/Loading'
 import { useGlobalContext } from '@/context/globalContext/GlobalContext'
 

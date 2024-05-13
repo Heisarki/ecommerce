@@ -12,7 +12,10 @@ import ConfirmationDialog from "@/components/cart/ConfirmationDialog";
 import { initialPriceDetails } from "./initialCartContextData";
 import { toast } from "sonner";
 import { useAddressContext } from "../addressContext/addressContext";
-import { useLoginInCreateAccountContext } from "../loginCreateAccount/LoginCreateAccount";
+import { useLoginInCreateAccountContext } from "../loginCreateAccountContext/LoginCreateAccountContext";
+import { saveData } from "@/api/crud";
+import { COLLECTION_NAME } from "@/constants/common";
+import { generateOrderNumber } from "@/utils";
 
 const CartContext = createContext({} as tCartContext);
 
@@ -21,7 +24,7 @@ export const CartContextProvider = ({
 }: {
     children: ReactNode
 }) => {
-    const { isLoggedIn, handleOpenLoginDialog }: tLoginInCreateAccountContext = useLoginInCreateAccountContext();
+    const { isLoggedIn, handleOpenLoginDialog, userDetails }: tLoginInCreateAccountContext = useLoginInCreateAccountContext();
     const { addressList, setAddressList }: tAddressContext = useAddressContext();
     const [cartItems, setCartItems] = useState([] as tCartItem[])
     const [openRemoveItemDialog, setOpenRemoveItemDialog] = useState(false)
@@ -109,10 +112,31 @@ export const CartContextProvider = ({
         setOpenRemoveItemDialog(false)
     }
 
-    function handleProceedToPayClick() {
+    async function handleProceedToPayClick() {
         if (!isLoggedIn) {
             handleOpenLoginDialog();
             return
+        }
+        console.log(cartItems)
+        const orderNumber = String(generateOrderNumber());
+        const response = await saveData(
+            userDetails.id,
+            COLLECTION_NAME.ORDERS,
+            {
+                [orderNumber]: {
+                    orderId: orderNumber,
+                    cartItems: cartItems,
+                    billing: priceDetails,
+                    deliveryAddress: deliveryAddress,
+                    orderDate: Date.now(),
+                }
+            }
+        )
+        if (response) {
+            toast.success("Ordered placed successfully!")
+            setCartItems([])
+        } else {
+            toast.error("Order not placed! Try again")
         }
     }
 
@@ -121,10 +145,10 @@ export const CartContextProvider = ({
         const calculatedSubTotal = cartItems.reduce((acc: number, itemEle: tCartItem) => (acc + (itemEle.price * itemEle.qty)), 0)
         const calculatedGST = (calculatedSubTotal / 100) * 18
         setPriceDetails({
+            ...priceDetails,
             subTotal: calculatedSubTotal,
-            deliveryCharges: cartItems.length * 40,
             gst: calculatedGST,
-            total: calculatedGST + calculatedSubTotal + cartItems.length * 40,
+            total: calculatedGST + calculatedSubTotal + 40,
         })
     }, [cartItems])
 

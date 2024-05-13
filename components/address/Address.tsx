@@ -6,7 +6,7 @@ import AddressItem from './AddressItem'
 import { Button } from '../ui/Button'
 import { useAddressContext } from '@/context/addressContext/addressContext'
 import { tAddressInputData, tLoginInCreateAccountContext } from '@/types'
-import { useLoginInCreateAccountContext } from '@/context/loginCreateAccount/LoginCreateAccount'
+import { useLoginInCreateAccountContext } from '@/context/loginCreateAccountContext/LoginCreateAccountContext'
 
 export default function Address() {
     const {
