@@ -7,11 +7,11 @@ export default function useNavigateTo() {
     const { setNavLoading }: tGlobalContext = useGlobalContext();
     const router = useRouter();
     function navigate(route: string) {
-        setNavLoading(true)
         router.push(route)
+        setNavLoading(true)
         setTimeout(() => {
             setNavLoading(false)
-        }, 500)
+        }, 100)
     }
     return { navigate }
 }

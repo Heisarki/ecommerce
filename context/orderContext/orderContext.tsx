@@ -21,7 +21,10 @@ export const OrderContextProvider = ({
 }: {
     children: ReactNode
 }) => {
-    const [orderList, setOrderList] = useState([])
+    const [orderList, setOrderList] = useState({
+        isLoading: false,
+        data: []
+    })
     const { userDetails }: tLoginInCreateAccountContext = useLoginInCreateAccountContext();
 
     const value = {
@@ -29,13 +32,27 @@ export const OrderContextProvider = ({
         getOrderList,
     }
     async function getOrderList() {
+        setOrderList({
+            isLoading: true,
+            data: []
+        })
+        if (!userDetails.id) {
+            setOrderList({
+                isLoading: false,
+                data: []
+            })
+            return
+        }
         try {
             const response: any = await getUserData(
                 userDetails.id,
                 COLLECTION_NAME.ORDERS
             )
             if (response) {
-                setOrderList(response)
+                setOrderList({
+                    isLoading: false,
+                    data: response
+                })
                 console.log("ORDERS DATA", response)
             }
         } catch (err: any) {

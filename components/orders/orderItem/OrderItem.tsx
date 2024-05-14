@@ -72,7 +72,7 @@ export default function OrderItem({
                     </div>
                 ))
             }
-            <div className='border p-[1rem] flex flex-col gap-[0.2rem] rounded-lg'>
+            <div className='border p-[1rem] flex flex-col gap-[0.2rem] rounded-lg bg-secondary'>
                 <h1 className='text-xs font-semibold mb-[0.3rem]'>
                     Price Details
                 </h1>
@@ -101,8 +101,8 @@ export default function OrderItem({
                     </h1>
                 </div>
                 <div className='flex items-center justify-between w-full mt-[0.3rem]'>
-                    <h1 className='text-xs'>Total <span className='text-xs'>{`(Incl. GST)`}</span></h1>
-                    <h1 className='text-xs'>
+                    <h1 className='text-xs font-semibold'>Total <span className='text-xs'>{`(Incl. GST)`}</span></h1>
+                    <h1 className='text-xs font-semibold'>
                         ₹{item?.billing?.total.toFixed(2)}
                     </h1>
                 </div>

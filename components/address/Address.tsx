@@ -28,7 +28,7 @@ export default function Address() {
     return (
         <div className='flex flex-col gap-[1rem]'>
             <Button
-                variant={"ghost"}
+                variant={"secondary"}
                 className='w-max'
                 onClick={handleAddNewAddressClick}
             >
